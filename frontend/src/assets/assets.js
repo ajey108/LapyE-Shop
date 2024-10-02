@@ -23,7 +23,7 @@ export const products = [
             screenSize: "13.3 inches"
         },
         date: 1716634345448,
-        bestseller: true
+        bestseller: false
     },
     {
         _id: "laptop2",
@@ -40,7 +40,7 @@ export const products = [
             screenSize: "13.3 inches"
         },
         date: 1716621345448,
-        bestseller: true
+        bestseller: false
     },
     {
         _id: "laptop3",
@@ -57,13 +57,13 @@ export const products = [
             screenSize: "14 inches"
         },
         date: 1716234545448,
-        bestseller: true
+        bestseller: false
     },
     {
         _id: "laptop4",
         name: "Acer Aspire 5",
         description: "An affordable and reliable laptop for everyday office tasks.",
-        price: 600,
+        price: 60000,
         image: [acerImg],  // Use the imported image variable
         category: "Office Work",
         subCategory: "Standard",
@@ -74,13 +74,13 @@ export const products = [
             screenSize: "15.6 inches"
         },
         date: 1716622345448,
-        bestseller: true
+        bestseller: false
     },
     {
         _id: "laptop5",
         name: "ASUS VivoBook 15",
         description: "A stylish and portable laptop ideal for students and professionals.",
-        price: 700,
+        price: 70000,
         image: [asusVivoBookImg],  // Use the imported image variable
         category: "Office Work",
         subCategory: "Standard",
@@ -97,7 +97,7 @@ export const products = [
         _id: "laptop6",
         name: "Razer Blade 15",
         description: "A powerful gaming laptop with top-notch graphics and performance.",
-        price: 2000,
+        price: 2000000,
         image: [razerBladeImg],  // Use the imported image variable
         category: "Gaming",
         subCategory: "High-Performance",
@@ -115,7 +115,7 @@ export const products = [
         _id: "laptop7",
         name: "Asus ROG Zephyrus G14",
         description: "A compact and powerful gaming laptop with excellent battery life.",
-        price: 1800,
+        price: 180000,
         image: [rogZephyrusImg],  // Use the imported image variable
         category: "Gaming",
         subCategory: "High-Performance",
@@ -133,16 +133,16 @@ export const products = [
         _id: "laptop8",
         name: "MacBook Air M1",
         description: "Premium laptop that delivers solid performance.",
-        price: 1200,
+        price: 82000,
         image: [macbookAirImg],  // Use the imported image variable
         category: "Professional",
         subCategory: "Budget",
         specs: {
-            processor: "Intel i5",
+            processor: "Apple M1",
             ram: "8GB",
-            storage: "512GB SSD",
-            graphics: "NVIDIA GTX 1660 Ti",
-            screenSize: "15.6 inches"
+            storage: "256GB SSD",
+            graphics: "Apple M1 Graphics",
+            screenSize: "13 inches"
         },
         date: 1716629945448,
         bestseller: true

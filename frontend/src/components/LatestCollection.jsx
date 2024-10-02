@@ -35,6 +35,7 @@ const LatestCollection = () => {
                             image={item.image[0]} // Access the first image in the array
                             name={item.name}
                             price={item.price}
+                            
                         />
                     ))
                 }

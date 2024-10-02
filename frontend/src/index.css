@@ -26,3 +26,11 @@ h1, h2, h3 {
 p {
   font-weight: 400;
 }
+
+
+@media(max-width: 640px) {
+  a.active{
+    background-color: black;
+    color:white
+  }
+}

@@ -12,8 +12,10 @@ const Navbar = () => {
   const [visible,setVisible] =useState(false);
   return (
     <div className=' flex  justify-between py-5 font-medium cursor-pointer'>
+      <Link to='/'>
+      
       <h1 className='text-white rounded-sm font-bold bg-gray-950 font-serif'>LapyE-shop</h1>
-
+      </Link>
       <ul className='hidden sm:flex gap-5 text-sm text-gray-700'>
 
       <NavLink to='/' className='flex flex-col items-center gap-1'>
