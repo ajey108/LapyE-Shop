@@ -65,7 +65,7 @@ export const products = [
         description: "An affordable and reliable laptop for everyday office tasks.",
         price: 60000,
         image: [acerImg],  // Use the imported image variable
-        category: "Office Work",
+        category: "OfficeWork",
         subCategory: "Standard",
         specs: {
             processor: "Intel i5",
@@ -82,7 +82,7 @@ export const products = [
         description: "A stylish and portable laptop ideal for students and professionals.",
         price: 70000,
         image: [asusVivoBookImg],  // Use the imported image variable
-        category: "Office Work",
+        category: "OfficeWork",
         subCategory: "Standard",
         specs: {
             processor: "AMD Ryzen 5",
