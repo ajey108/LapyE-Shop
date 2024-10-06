@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn ,FaGithub} from 'reac
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-100 text-white py-10">
+    <footer className="bg-gray-100 text-black py-10">
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Section */}
@@ -15,7 +15,7 @@ const Footer = () => {
           </div>
 
           {/* Links Section */}
-          <div>
+          <div className='text-black'>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li><a href="#about" className="text-gray-400 hover:text-black">About</a></li>
@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
 
           {/* Social Media Section */}
-          <div>
+          <div className='text-black'>
             <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
               <a href="https://github.com/ajey108" target="_blank" rel="noopener noreferrer">
