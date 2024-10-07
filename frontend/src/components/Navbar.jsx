@@ -9,7 +9,7 @@ import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { showSearch, setShowSearch } = useContext(ShopContext);
+  const { showSearch, setShowSearch ,getCartCount} = useContext(ShopContext);
 
   return (
     <>
@@ -63,7 +63,7 @@ const Navbar = () => {
         {/* Cart Icon */}
         <Link to='/cart' className='relative'>
           <HiShoppingBag className='w-[35px]' />
-          <p className='absolute right-[-2px] bottom-[-5px] w-[15px] text-center leading-4 text-black aspect-square rounded-full text-[10px]'>10</p>
+          <p className='absolute right-[-2px] bottom-[-5px] w-[15px] text-center leading-4 text-black aspect-square rounded-full text-[10px]'>{getCartCount()}</p>
         </Link>
 
         {/* Mobile Menu Icon */}

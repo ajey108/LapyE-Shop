@@ -22,6 +22,16 @@ export const products = [
             storage: "512GB SSD",
             screenSize: "13.3 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716634345448,
         bestseller: false
     },
@@ -39,6 +49,16 @@ export const products = [
             storage: "1TB SSD",
             screenSize: "13.3 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716621345448,
         bestseller: false
     },
@@ -56,6 +76,16 @@ export const products = [
             storage: "1TB SSD",
             screenSize: "14 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716234545448,
         bestseller: false
     },
@@ -73,6 +103,16 @@ export const products = [
             storage: "256GB SSD",
             screenSize: "15.6 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716622345448,
         bestseller: false
     },
@@ -90,6 +130,16 @@ export const products = [
             storage: "512GB SSD",
             screenSize: "15.6 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716623423448,
         bestseller: true
     },
@@ -108,6 +158,16 @@ export const products = [
             graphics: "NVIDIA RTX 3070",
             screenSize: "15.6 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716621542448,
         bestseller: true
     },
@@ -126,6 +186,16 @@ export const products = [
             graphics: "NVIDIA RTX 3060",
             screenSize: "14 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716626645448,
         bestseller: true
     },
@@ -144,6 +214,16 @@ export const products = [
             graphics: "Apple M1 Graphics",
             screenSize: "13 inches"
         },
+        variants: [
+            {
+                config: "8GB/256GB SSD",
+                
+            },
+            {
+                config: "16GB/512GB SSD",
+               
+            }
+        ],
         date: 1716629945448,
         bestseller: true
     }
