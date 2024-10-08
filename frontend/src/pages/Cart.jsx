@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from '../components/Title'
 import { TiDelete } from "react-icons/ti";
+import CartTotal from '../components/CartTotal';
+
 
 
 const Cart = () => {
@@ -23,7 +25,7 @@ const Cart = () => {
   return (
     <div className="border-t pt-14">
       <div className="text-2xl mb-3">
-        <Title text={'Your'} text2={'cart'} />
+        <Title text1={'Your'} text2={'cart'} />
       </div>
 
       <div>
@@ -45,18 +47,27 @@ const Cart = () => {
                   <div className=''>
                     <p className="text-sm sm:text-lg font-medium">{productData.name}</p>
                     <p className="text-gray-500 text-sm">Variant: {item.size}</p>
+                    <p className='text-gray-500 text-sm'>{currency}{productData.price}</p>
                    
                     
                   </div>
 
                 </div>
                 <TiDelete onClick={() => updateQuantity(item._id, item.size, 0)} className="text-2xl cursor-pointer" />
-                <input className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
+                <input onChange={(e) => e.target.value === ''|| e.target.value === '0' ? null  : updateQuantity(item._id, item.size,Number(e.target.value)) } className='border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' type="number" min={1} defaultValue={item.quantity} />
                 
               </div>
             );
           })
         }
+      </div>
+      <div className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartTotal />
+          <div className="w-full text-end">
+            <button className='bg-black text-white text-sm px-10 py-4 mt-2'>PROCEED TO CHECKOUT</button>
+          </div>
+        </div>
       </div>
     </div>
   );
