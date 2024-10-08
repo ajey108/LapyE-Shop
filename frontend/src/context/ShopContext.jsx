@@ -50,13 +50,36 @@ const ShopContextProvider = (props) => {
     useEffect(() => {
        console.log(cartItems)
     }, [cartItems])
+
+
+    //update quantity
+
+    const updateQuantity = async (itemId, selectedVariant, quantity) => {
+        let cartData = structuredClone(cartItems);
+      
+        if (quantity > 0) {
+          // Update quantity if it's more than 0
+          cartData[itemId][selectedVariant] = quantity;
+        } else {
+          // Remove the variant if quantity is 0
+          delete cartData[itemId][selectedVariant];
+      
+          // If no variants are left for a product, remove the product from the cart
+          if (Object.keys(cartData[itemId]).length === 0) {
+            delete cartData[itemId];
+          }
+        }
+      
+        setCartItems(cartData);
+      };
+      
     
 
 
     const value = {
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,
-        cartItems,addToCart,getCartCount
+        cartItems,addToCart,getCartCount,updateQuantity
     
     }
 
