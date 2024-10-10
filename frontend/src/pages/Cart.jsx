@@ -7,7 +7,7 @@ import CartTotal from '../components/CartTotal';
 
 
 const Cart = () => {
-  const { products, currency, cartItems,updateQuantity } = useContext(ShopContext);
+  const { products, currency, cartItems,updateQuantity,navigate } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   console.log(cartData);
 
@@ -65,7 +65,7 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal />
           <div className="w-full text-end">
-            <button className='bg-black text-white text-sm px-10 py-4 mt-2'>PROCEED TO CHECKOUT</button>
+            <button onClick={() => navigate('/place-order')} className='bg-black text-white text-sm px-10 py-4 mt-2'>PROCEED TO CHECKOUT</button>
           </div>
         </div>
       </div>
