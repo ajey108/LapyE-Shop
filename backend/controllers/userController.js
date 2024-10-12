@@ -5,14 +5,40 @@ import jwt from "jsonwebtoken";
 
 // Function to create a JWT token
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '2h' });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '24h' });
 };
 
 
 // Login user
 const loginUser = async (req, res) => {
-    res.send('login');
+  try{
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ success: false, message: "user not found" });
+
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (isMatch) {
+      const token = createToken(user._id);
+      res.json({ success: true, token });
+    } else{
+      res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error. Please try again later." });
+
+  }
 };
+
+
+
+
 
 
 // Register user
