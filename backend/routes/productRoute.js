@@ -4,7 +4,7 @@ import upload from '../middleware/multer.js';
 
 const productRouter = express.Router();
 
-//api endpoints 
+//api endpoints
 productRouter.post('/add', upload.single('image'), addProduct);
 productRouter.get('/list',listProducts);
 productRouter.delete('/remove',removeProduct);

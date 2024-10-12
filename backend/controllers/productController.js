@@ -63,6 +63,17 @@ const addProduct = async (req, res) => {
 // function for list product
 
 const listProducts = async (req, res) => {
+    try{
+        const products = await productModel.find({});
+        res.json({
+            success: true,
+            products
+        });
+
+    }catch(error){
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
 
 }
 
@@ -71,7 +82,16 @@ const listProducts = async (req, res) => {
 // function for removing product
 
 const removeProduct = async (req, res) => {
-    
+    try{
+        await productModel.findByIdAndDelete(req.body._id);
+        res.json({
+            success: true,
+            message: 'Product removed successfully'
+        });
+    }catch(error){
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
 }
 
 
