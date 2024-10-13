@@ -92,6 +92,8 @@ const removeProduct = async (req, res) => {
 }
 
 
+
+
 // function for single product info
 
 const singleProduct = async (req, res) => {
