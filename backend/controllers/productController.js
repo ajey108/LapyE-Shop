@@ -2,8 +2,6 @@ import {v2 as cloudinary} from 'cloudinary'
 import productModel from '../models/productModel.js';
 
 // function for add product
-
-
 const addProduct = async (req, res) => {
     try {
         const { name, description, price, category, variants,specs, bestseller } = req.body;
@@ -60,8 +58,7 @@ const addProduct = async (req, res) => {
 
 
 
-// function for list product
-
+// function for list products
 const listProducts = async (req, res) => {
     try{
         const products = await productModel.find({});
