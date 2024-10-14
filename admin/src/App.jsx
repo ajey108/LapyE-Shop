@@ -1,11 +1,10 @@
-import React from 'react'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import { Routes, Route } from 'react-router-dom';
 import Add from './pages/Add'
 import List from './pages/List';
 import Orders from './pages/Orders';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import Login from './components/Login';
 
 import { ToastContainer} from 'react-toastify';
@@ -14,33 +13,42 @@ import 'react-toastify/dist/ReactToastify.css';
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const App = () => {
+  const [token, setToken] = useState(localStorage.getItem("token") ? localStorage.getItem("token") : '');
 
-  const [token, setToken] = useState('');
+  useEffect(() => {
+    localStorage.setItem('token', token);
+  }, [token]);
 
   return (
-    <div className='bg-gray-800 text-white min-h-screen'>
-
+    <div className="bg-gradient-to-b from-gray-900 to-gray-800 text-white min-h-screen">
       <ToastContainer />
-      {
-        token === '' ? <Login setToken={setToken} /> :
-          <>
-
-            <Navbar />
-            <hr />
-            <div className="flex w-full">
+      
+      {token === '' ? (
+        <Login setToken={setToken} />
+      ) : (
+        <>
+          <Navbar setToken={setToken} />
+          <hr className="border-gray-700" />
+          
+          <div className="flex flex-col md:flex-row w-full">
+            {/* Sidebar for Desktop and Mobile */}
+            <div className="md:w-1/4 w-full">
               <Sidebar />
-              <div className="w-[70%] mx-auto ml-[max(5vw,25px) my-8 text-gray-600 text-base]"></div>
+            </div>
+
+            {/* Main Content Area */}
+            <div className="w-full md:w-3/4 mx-auto p-4 text-gray-300">
               <Routes>
-                <Route path='/add' element={<Add />} />
-                <Route path='/add' element={<List />} />
-                <Route path='/add' element={<Orders />} />
+                <Route path="/add" element={<Add token={token} />} />
+                <Route path="/list" element={<List token={token} />} />
+                <Route path="/orders" element={<Orders token={token} />} />
               </Routes>
             </div>
-          </>
-      }
-
+          </div>
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
