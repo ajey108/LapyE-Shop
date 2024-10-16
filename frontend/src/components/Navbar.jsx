@@ -57,16 +57,16 @@ const Navbar = () => {
 
         {/* Profile Dropdown */}
         <div className='group relative'>
-          <Link to='/login'> <CgProfile /></Link>
+          <Link to='/login'> <CgProfile onClick={() => token? null : navigate('/login')} /></Link>
          
-
-          <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+          {/* Dropdown Menu */}
+          {token && <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100">
               <p className='hover:text-black'>My Profile</p>
               <p className='hover:text-black'>Orders</p>
               <p onClick={logout} className='hover:text-red-400'>Logout</p>
             </div>
-          </div>
+          </div> }
         </div>
 
         {/* Cart Icon */}
