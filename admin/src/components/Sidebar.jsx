@@ -6,7 +6,7 @@ import { FaCalendarCheck } from "react-icons/fa6";
 
 const Sidebar = () => {
   return (
-    <div className="bg-gray-800 text-white min-h-screen p-4">
+    <div className="bg-gray-800 text-white h-[1000px] p-4">
       <nav className="space-y-4">
         {/* Add Item */}
         <NavLink

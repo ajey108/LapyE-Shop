@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { useState } from 'react';
 import axios from 'axios';
 import { backendUrl } from '../App';
+import { toast } from 'react-toastify';
 
-const Add = ({token}) => {
+const Add = ({ token }) => {
   const [image, setImage] = useState(null);
-
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('Gaming');
   const [variants, setVariants] = useState([]);
-  const [bestseller, setBestseller] = useState('true');
-  const [specs, setSpecs] = useState([]);
+  const [bestseller, setBestseller] = useState(true);
+  const [specs, setSpecs] = useState('');
 
-
-  const submitHandler = async (e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    try{
+    if (!image) {
+      toast.error("Please upload an image");
+      return;
+    }
 
+    try {
       const formData = new FormData();
       formData.append('image', image);
       formData.append('name', name);
@@ -29,18 +31,33 @@ const Add = ({token}) => {
       formData.append('category', category);
       formData.append('variants', JSON.stringify(variants));
       formData.append('bestseller', bestseller);
-      formData.append('specs', JSON.stringify(specs));
+      formData.append('specs', specs); // If specs is a string
 
-      const response = await  axios.post(`${backendUrl}/api/product/add`, formData,{headers:{token}});
-      console.log(response.data)
-    }catch(error){
+      const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
+        headers: { token }
+      });
 
+      if (response.data.success) {
+        toast.success(response.data.message);
+        // Reset form after successful submission
+        setName('');
+        setImage(null);
+        setDescription('');
+        setPrice('');
+        setCategory('Gaming');
+        setVariants([]);
+        setBestseller(true);
+        setSpecs('');
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error('Error adding product');
     }
-  }
-
+  };
 
   return (
-    <div className="max-w-lg min-h-screen mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+    <div className="max-w-lg mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-lg">
       <form onSubmit={submitHandler} className="space-y-6">
         {/* Upload Image */}
         <div>
@@ -49,7 +66,7 @@ const Add = ({token}) => {
             htmlFor="image"
             className="flex items-center justify-center bg-gray-700 py-4 rounded-lg cursor-pointer hover:bg-gray-600 transition duration-300"
           >
-            {!image ? <FaCloudUploadAlt size={20} /> : <img className=' w-[50px] h-[50px]' src={URL.createObjectURL(image)} alt="upload" />}
+            {!image ? <FaCloudUploadAlt size={20} /> : <img className='w-[50px] h-[50px]' src={URL.createObjectURL(image)} alt="upload" />}
             <span className="text-sm">Choose an image</span>
             <input onChange={(e) => setImage(e.target.files[0])} type="file" id="image" hidden />
           </label>
@@ -58,9 +75,10 @@ const Add = ({token}) => {
         {/* Product Name */}
         <div className="space-y-2">
           <p className="text-lg">Product Name</p>
-          <input onChange={(e) => setName(e.target.value)}
-            type="text"
+          <input
+            onChange={(e) => setName(e.target.value)}
             value={name}
+            type="text"
             placeholder="Type here"
             className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
             required
@@ -70,7 +88,8 @@ const Add = ({token}) => {
         {/* Product Description */}
         <div className="space-y-2">
           <p className="text-lg">Product Description</p>
-          <textarea onChange={(e) => setDescription(e.target.value)}
+          <textarea
+            onChange={(e) => setDescription(e.target.value)}
             value={description}
             placeholder="Description here"
             className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
@@ -78,12 +97,11 @@ const Add = ({token}) => {
           />
         </div>
 
-
-
         {/* Product Specs */}
         <div className="space-y-2">
           <p className="text-lg">Product Specs</p>
-          <textarea onChange={(e) => setSpecs(e.target.value)}
+          <textarea
+            onChange={(e) => setSpecs(e.target.value)}
             value={specs}
             placeholder="Specs here"
             className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
@@ -95,6 +113,8 @@ const Add = ({token}) => {
         <div className="space-y-2">
           <p className="text-lg">Product Category</p>
           <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
           >
             <option value="Professional">Professional</option>
@@ -106,7 +126,8 @@ const Add = ({token}) => {
         {/* Product Price */}
         <div className="space-y-2">
           <p className="text-lg">Product Price</p>
-          <input onChange={(e) => setPrice(e.target.value)}
+          <input
+            onChange={(e) => setPrice(e.target.value)}
             value={price}
             type="number"
             placeholder="25"
@@ -117,12 +138,12 @@ const Add = ({token}) => {
 
         {/* Product Variants */}
         <div className="space-y-2">
-          <p className='text-lg'> Product Variants </p>
+          <p className='text-lg'>Product Variants</p>
           <div className="flex flex-wrap gap-4">
-            <div onClick={(e) => setVariants(prev => prev.includes('8GB/256GB/512GB') ? prev.filter(item => item !== '8GB/256GB/512GB') : [...prev, '8GB/256GB/512GB'])} className="bg-gray-700 px-4 py-2 rounded-lg">
+            <div onClick={() => setVariants(prev => prev.includes('8GB/256GB/512GB') ? prev.filter(item => item !== '8GB/256GB/512GB') : [...prev, '8GB/256GB/512GB'])} className="bg-gray-700 px-4 py-2 rounded-lg cursor-pointer">
               <p className={`text-lg ${variants.includes('8GB/256GB/512GB') ? 'text-green-500' : ''}`}>8GB/256GB/512GB</p>
             </div>
-            <div onClick={(e) => setVariants(prev => prev.includes('16GB/1TB') ? prev.filter(item => item !== '16GB/1TB') : [...prev, '16GB/1TB'])} className="bg-gray-700 px-4 py-2 rounded-lg">
+            <div onClick={() => setVariants(prev => prev.includes('16GB/1TB') ? prev.filter(item => item !== '16GB/1TB') : [...prev, '16GB/1TB'])} className="bg-gray-700 px-4 py-2 rounded-lg cursor-pointer">
               <p className={`text-lg ${variants.includes('16GB/1TB') ? 'text-green-500' : ''}`}>16GB/1TB</p>
             </div>
           </div>
@@ -130,12 +151,12 @@ const Add = ({token}) => {
 
         {/* Bestseller Checkbox */}
         <div className="flex items-center space-x-2">
-          <input onChange={() => setBestseller(prev => !prev)}
-            value={bestseller}
-            checked={true}
+          <input
+            onChange={() => setBestseller(prev => !prev)}
+            checked={bestseller}
             type="checkbox"
             id="bestseller"
-            className="h-5 w-5 text-green-500 focus:green-500 border-gray-300 rounded"
+            className="h-5 w-5 text-green-500 focus:ring-green-500 border-gray-300 rounded"
           />
           <label htmlFor="bestseller" className="text-sm">Add to bestseller</label>
         </div>
@@ -144,7 +165,7 @@ const Add = ({token}) => {
         <div>
           <button
             type="submit"
-            className="w-full bg-green-500 py-3 rounded-lg text-white font-semibold hover:bg-green-500 transition duration-300"
+            className="w-full bg-green-500 py-3 rounded-lg text-white font-semibold hover:bg-green-600 transition duration-300"
           >
             Add Product
           </button>
