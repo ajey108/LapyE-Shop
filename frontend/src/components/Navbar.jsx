@@ -9,8 +9,16 @@ import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { showSearch, setShowSearch ,getCartCount} = useContext(ShopContext);
+  const { showSearch, setShowSearch ,getCartCount,navigate,token,setToken,setCartItems} = useContext(ShopContext);
 
+
+  //logout
+  const logout =()=>{
+    localStorage.removeItem('token');
+    setToken('');
+    setCartItems([]);
+    navigate('/login');
+  }
   return (
     <>
       <div className='flex justify-between py-5 font-medium cursor-pointer'>
@@ -56,7 +64,7 @@ const Navbar = () => {
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100">
               <p className='hover:text-black'>My Profile</p>
               <p className='hover:text-black'>Orders</p>
-              <p className='hover:text-red-400'>Logout</p>
+              <p onClick={logout} className='hover:text-red-400'>Logout</p>
             </div>
           </div>
         </div>
