@@ -80,7 +80,7 @@ const listProducts = async (req, res) => {
 
 const removeProduct = async (req, res) => {
     try{
-        await productModel.findByIdAndDelete(req.body._id);
+        await productModel.findByIdAndDelete(req.params.id);
         res.json({
             success: true,
             message: 'Product removed successfully'
