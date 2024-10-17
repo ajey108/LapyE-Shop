@@ -12,7 +12,7 @@ const Add = ({ token }) => {
   const [category, setCategory] = useState('Gaming');
   const [variants, setVariants] = useState([]);
   const [bestseller, setBestseller] = useState(true);
-  const [specs, setSpecs] = useState('');
+  const [specs, setSpecs] = useState(['']); // Updated to store multiple specs
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const Add = ({ token }) => {
       formData.append('category', category);
       formData.append('variants', JSON.stringify(variants));
       formData.append('bestseller', bestseller);
-      formData.append('specs', specs); // If specs is a string
+      formData.append('specs', JSON.stringify(specs)); // Sending specs as an array
 
       const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
         headers: { token }
@@ -47,13 +47,30 @@ const Add = ({ token }) => {
         setCategory('Gaming');
         setVariants([]);
         setBestseller(true);
-        setSpecs('');
+        setSpecs(['']);
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       toast.error('Error adding product');
     }
+  };
+
+  // Function to handle adding new specs
+  const addSpec = () => {
+    setSpecs([...specs, '']);
+  };
+
+  // Function to handle removing a spec
+  const removeSpec = (index) => {
+    setSpecs(specs.filter((_, i) => i !== index));
+  };
+
+  // Function to handle spec input change
+  const handleSpecChange = (index, value) => {
+    const newSpecs = [...specs];
+    newSpecs[index] = value;
+    setSpecs(newSpecs);
   };
 
   return (
@@ -100,13 +117,34 @@ const Add = ({ token }) => {
         {/* Product Specs */}
         <div className="space-y-2">
           <p className="text-lg">Product Specs</p>
-          <textarea
-            onChange={(e) => setSpecs(e.target.value)}
-            value={specs}
-            placeholder="Specs here"
-            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
-            required
-          />
+          {specs.map((spec, index) => (
+            <div key={index} className="flex space-x-2">
+              <input
+                type="text"
+                value={spec}
+                onChange={(e) => handleSpecChange(index, e.target.value)}
+                placeholder="Enter spec"
+                className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
+                required
+              />
+              {specs.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeSpec(index)}
+                  className="bg-red-500 text-white px-3 py-1 rounded-lg"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={addSpec}
+            className="mt-2 bg-blue-500 text-white px-3 py-2 rounded-lg"
+          >
+            Add Spec
+          </button>
         </div>
 
         {/* Product Category */}

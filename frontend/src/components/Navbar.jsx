@@ -9,11 +9,11 @@ import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
-  const { showSearch, setShowSearch ,getCartCount,navigate,token,setToken,setCartItems} = useContext(ShopContext);
+  const { showSearch, setShowSearch, getCartCount, navigate, token, setToken, setCartItems } = useContext(ShopContext);
 
 
   //logout
-  const logout =()=>{
+  const logout = () => {
     localStorage.removeItem('token');
     setToken('');
     setCartItems([]);
@@ -57,16 +57,16 @@ const Navbar = () => {
 
         {/* Profile Dropdown */}
         <div className='group relative'>
-          <Link to='/login'> <CgProfile onClick={() => token? null : navigate('/login')} /></Link>
-         
+          <Link to='/login'> <CgProfile onClick={() => token ? null : navigate('/login')} /></Link>
+
           {/* Dropdown Menu */}
           {token && <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100">
               <p className='hover:text-green-400'>My Profile</p>
-              <p onClick={()=>navigate('/orders')} className='hover:text-green-400'>Orders</p>
+              <p onClick={() => navigate('/orders')} className='hover:text-green-400'>Orders</p>
               <p onClick={logout} className='hover:text-red-400'>Logout</p>
             </div>
-          </div> }
+          </div>}
         </div>
 
         {/* Cart Icon */}
