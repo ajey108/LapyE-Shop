@@ -56,17 +56,18 @@ const Product = () => {
 
           {/* Specifications */}
           {productData.specs && (
-            <div className="mt-6">
-              <h3 className="text-lg font-bold">Specifications:</h3>
-              <ul className="text-gray-400 flex flex-col gap-1">
-                {Object.entries(productData.specs).map(([key, value], index) => (
-                  <li key={index}>
-                    {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+  <div className="mt-6">
+    <h3 className="text-lg font-bold">Specifications:</h3>
+    <ul className="text-gray-400 flex flex-col gap-1">
+      {productData.specs.map((spec, index) => (
+        <li key={index}>
+          {spec}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
 
           {/* Variant Selection */}
           <div className="mt-6">
