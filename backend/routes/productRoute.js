@@ -8,7 +8,8 @@ const productRouter = express.Router();
 //api endpoints
 productRouter.post('/add',adminAuth, upload.single('image'), addProduct);
 productRouter.get('/list',listProducts);
-productRouter.delete('/remove',adminAuth,removeProduct);
+productRouter.delete('/remove/:id', adminAuth, removeProduct);
+
 productRouter.get('/single',singleProduct);
 
 export default productRouter;

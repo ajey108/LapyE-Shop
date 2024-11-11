@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import axios from 'axios';
-import { backendUrl } from '../App';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { backendUrl } from "../App";
+import { toast } from "react-toastify";
 
 const Add = ({ token }) => {
   const [image, setImage] = useState(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('Gaming');
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("Gaming");
   const [variants, setVariants] = useState([]);
   const [bestseller, setBestseller] = useState(true);
-  const [specs, setSpecs] = useState(['']); // Updated to store multiple specs
+  const [specs, setSpecs] = useState([""]); // Updated to store multiple specs
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -24,41 +24,51 @@ const Add = ({ token }) => {
 
     try {
       const formData = new FormData();
-      formData.append('image', image);
-      formData.append('name', name);
-      formData.append('description', description);
-      formData.append('price', price);
-      formData.append('category', category);
-      formData.append('variants', JSON.stringify(variants));
-      formData.append('bestseller', bestseller);
-      formData.append('specs', JSON.stringify(specs)); // Sending specs as an array
+      formData.append("image", image);
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("bestseller", bestseller);
+      formData.append("specs", JSON.stringify(specs));
+      variants.forEach((variant) => formData.append("variants[]", variant));
 
-      const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
-        headers: { token }
-      });
+      const response = await axios.post(
+        `${backendUrl}/api/product/add`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-      if (response.data.success) {
+      if (response.data && response.data.success) {
         toast.success(response.data.message);
         // Reset form after successful submission
-        setName('');
+        setName("");
         setImage(null);
-        setDescription('');
-        setPrice('');
-        setCategory('Gaming');
+        setDescription("");
+        setPrice("");
+        setCategory("Gaming");
         setVariants([]);
         setBestseller(true);
-        setSpecs(['']);
+        setSpecs([""]);
       } else {
-        toast.error(response.data.message);
+        toast.error(response.data.message || "Unexpected response");
       }
     } catch (error) {
-      toast.error('Error adding product');
+      console.error("Error response:", error.response); // Log error response
+      if (error.response && error.response.data) {
+        // Attempt to show backend error message if available
+        toast.error(error.response.data.message || "Server Error");
+      } else {
+        toast.error("Error adding product");
+      }
     }
   };
 
   // Function to handle adding new specs
   const addSpec = () => {
-    setSpecs([...specs, '']);
+    setSpecs([...specs, ""]);
   };
 
   // Function to handle removing a spec
@@ -83,9 +93,22 @@ const Add = ({ token }) => {
             htmlFor="image"
             className="flex items-center justify-center bg-gray-700 py-4 rounded-lg cursor-pointer hover:bg-gray-600 transition duration-300"
           >
-            {!image ? <FaCloudUploadAlt size={20} /> : <img className='w-[50px] h-[50px]' src={URL.createObjectURL(image)} alt="upload" />}
+            {!image ? (
+              <FaCloudUploadAlt size={20} />
+            ) : (
+              <img
+                className="w-[50px] h-[50px]"
+                src={URL.createObjectURL(image)}
+                alt="upload"
+              />
+            )}
             <span className="text-sm">Choose an image</span>
-            <input onChange={(e) => setImage(e.target.files[0])} type="file" id="image" hidden />
+            <input
+              onChange={(e) => setImage(e.target.files[0])}
+              type="file"
+              id="image"
+              hidden
+            />
           </label>
         </div>
 
@@ -176,27 +199,43 @@ const Add = ({ token }) => {
 
         {/* Product Variants */}
         <div className="space-y-2">
-          <p className='text-lg'>Product Variants</p>
+          <p className="text-lg">Product Variants</p>
           <div className="flex flex-wrap gap-4">
-            <div onClick={() => setVariants(prev => prev.includes('8GB/256GB/512GB') ? prev.filter(item => item !== '8GB/256GB/512GB') : [...prev, '8GB/256GB/512GB'])} className="bg-gray-700 px-4 py-2 rounded-lg cursor-pointer">
-              <p className={`text-lg ${variants.includes('8GB/256GB/512GB') ? 'text-green-500' : ''}`}>8GB/256GB/512GB</p>
-            </div>
-            <div onClick={() => setVariants(prev => prev.includes('16GB/1TB') ? prev.filter(item => item !== '16GB/1TB') : [...prev, '16GB/1TB'])} className="bg-gray-700 px-4 py-2 rounded-lg cursor-pointer">
-              <p className={`text-lg ${variants.includes('16GB/1TB') ? 'text-green-500' : ''}`}>16GB/1TB</p>
-            </div>
+            {["8GB/256GB/512GB", "16GB/1TB"].map((variant) => (
+              <button
+                key={variant}
+                onClick={() =>
+                  setVariants((prev) =>
+                    prev.includes(variant)
+                      ? prev.filter((item) => item !== variant)
+                      : [...prev, variant]
+                  )
+                }
+                className={`px-4 py-2 rounded-lg cursor-pointer transition duration-300 ${
+                  variants.includes(variant)
+                    ? "bg-green-500 text-white"
+                    : "bg-gray-700 text-gray-300"
+                }`}
+                title={`Select ${variant}`}
+              >
+                {variant}
+              </button>
+            ))}
           </div>
         </div>
 
         {/* Bestseller Checkbox */}
         <div className="flex items-center space-x-2">
           <input
-            onChange={() => setBestseller(prev => !prev)}
+            onChange={() => setBestseller((prev) => !prev)}
             checked={bestseller}
             type="checkbox"
             id="bestseller"
             className="h-5 w-5 text-green-500 focus:ring-green-500 border-gray-300 rounded"
           />
-          <label htmlFor="bestseller" className="text-sm">Add to bestseller</label>
+          <label htmlFor="bestseller" className="text-sm">
+            Add to bestseller
+          </label>
         </div>
 
         {/* Submit Button */}
