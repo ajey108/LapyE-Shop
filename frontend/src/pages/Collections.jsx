@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { IoMdArrowDropupCircle } from "react-icons/io";
 import Title from "../components/Title";
@@ -20,8 +20,9 @@ const Collections = () => {
     }
   };
 
-  // Apply filter based on category
-  const applyFilter = useCallback(() => {
+  // Consolidated filtering and sorting logic in a single useEffect
+  useEffect(() => {
+    // Step 1: Apply category and search filters
     let productsCopy = products.slice();
 
     if (showSearch && search) {
@@ -35,45 +36,21 @@ const Collections = () => {
         category.includes(item.category)
       );
     }
-    setFilterProducts(productsCopy);
-  }, [products, showSearch, search, category]); // Dependencies for applyFilter
 
-  // Define sortProducts with useCallback
-  const sortProducts = useCallback(() => {
-    let filterProductsCopy = filterProducts.slice();
-
+    // Step 2: Apply sorting
     switch (sort) {
       case "low-high":
-        setFilterProducts(filterProductsCopy.sort((a, b) => a.price - b.price));
+        productsCopy = productsCopy.sort((a, b) => a.price - b.price);
         break;
       case "high-low":
-        setFilterProducts(filterProductsCopy.sort((a, b) => b.price - a.price));
+        productsCopy = productsCopy.sort((a, b) => b.price - a.price);
         break;
-
       default:
-        applyFilter();
         break;
     }
-  }, [filterProducts, sort, applyFilter]); // Dependencies for sortProducts
 
-  // useEffect to call applyFilter or sortProducts when dependencies change
-  useEffect(() => {
-    if (sort) {
-      sortProducts();
-    } else {
-      applyFilter();
-    }
-  }, [sort, applyFilter, sortProducts]);
-
-  // Apply filter on category change
-  useEffect(() => {
-    applyFilter();
-  }, [category, search, showSearch, applyFilter]);
-
-  // Apply filter on sort change
-  useEffect(() => {
-    sortProducts();
-  }, [sort, sortProducts]);
+    setFilterProducts(productsCopy);
+  }, [products, showSearch, search, category, sort]); // Dependencies for filtering and sorting
 
   return (
     <div className="px-4 sm:px-10 pt-10 border-t">
