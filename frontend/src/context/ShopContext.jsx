@@ -21,7 +21,7 @@ const ShopContextProvider = (props) => {
   const navigate = useNavigate();
 
   // Add item to cart
-  const addToCart = async (itemId, selectedVariant, userId) => {
+  const addToCart = async (itemId, selectedVariant) => {
     console.log("itemId:", itemId);
     console.log(`clicked ${itemId} ${selectedVariant}`);
 
@@ -49,11 +49,11 @@ const ShopContextProvider = (props) => {
     setCartItems(cartData);
 
     // if we are logged in, then update the cart
-    if (token && userId) {
+    if (token) {
       try {
         await axios.post(
           `${backendUrl}/api/cart/add`,
-          { itemId, selectedVariant, userId },
+          { itemId, selectedVariant },
           { headers: { token } }
         );
       } catch (error) {
@@ -123,31 +123,30 @@ const ShopContextProvider = (props) => {
 
   //get products data
 
-  const getProductsData = async () => {
-    try {
-      const response = await axios.get(`${backendUrl}/api/product/list`);
-      if (response.data.success) {
-        setProducts(response.data.products);
-      } else {
-        toast.error(response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
-    }
-  };
-
-  //get products data
   useEffect(() => {
+    const getProductsData = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/product/list`);
+        if (response.data.success) {
+          setProducts(response.data.products);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+      }
+    };
+
     getProductsData();
-  }, []);
+  }, [backendUrl]); // Add any other dependencies here
 
   //set token from local storage
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }
-  }, []);
+  }, [token]);
 
   const value = {
     products,
