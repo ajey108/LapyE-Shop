@@ -26,9 +26,11 @@ const placeOrder = async (req, res) => {
       date: Date.now(),
     };
 
+    // Create a new order
     const newOrder = new orderModel(orderData);
     await newOrder.save();
 
+    // Clear/Update user's cart data
     await userModel.findByIdAndUpdate(userId, { cartData: {} });
 
     res.json({ success: true, message: "Order Placed" });
@@ -37,8 +39,6 @@ const placeOrder = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
-
-// Verify Stripe
 
 // Placing orders using Razorpay Method
 const placeOrderRazorpay = async (req, res) => {
@@ -77,6 +77,7 @@ const placeOrderRazorpay = async (req, res) => {
   }
 };
 
+// Verify Razorpay Payment
 const verifyRazorpay = async (req, res) => {
   try {
     const { userId, razorpay_order_id } = req.body;

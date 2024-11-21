@@ -29,7 +29,7 @@ const Product = () => {
     if (products && products.length > 0) {
       fetchProductData(); // Fetch product when products are available
     }
-  }, [productId, products]);
+  }, [productId, products, selectedVariant]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 bg-gray-100 text-black mb-3">

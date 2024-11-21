@@ -5,6 +5,8 @@ import userModel from "../models/userModel.js";
 const addToCart = async (req, res) => {
   try {
     const { userId, itemId, selectedVariant, quantity } = req.body;
+    console.log("Request Body:", req.body);
+    console.log("Request Body:", req.body);
 
     // Check if quantity is valid
     if (
@@ -18,16 +20,16 @@ const addToCart = async (req, res) => {
 
     // Build path for variant within item
     const variantPath = `cartData.${itemId}.${selectedVariant}`;
-
+    console.log("Quantity:", quantity);
     // Use $set to explicitly set the quantity for the specific variant
     await userModel.findByIdAndUpdate(
       userId,
       {
         $set: {
-          [variantPath]: quantity, // Set the quantity directly
+          [`cartData.${itemId}.${selectedVariant}`]: quantity,
         },
       },
-      { new: true, upsert: true } // Ensures creation if path doesn’t exist
+      { new: true, upsert: true }
     );
 
     res.json({ success: true, message: "Product added to cart" });

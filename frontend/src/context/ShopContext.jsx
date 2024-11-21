@@ -15,6 +15,7 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(true);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
+  console.log(cartItems);
 
   const [products, setProducts] = useState([]);
 
@@ -46,6 +47,10 @@ const ShopContextProvider = (props) => {
       cartData[itemId] = {};
       cartData[itemId][selectedVariant] = 1;
     }
+
+    // get the quantity from the cartData
+    const quantity = cartData[itemId][selectedVariant];
+
     setCartItems(cartData);
 
     // if we are logged in, then update the cart
@@ -53,7 +58,7 @@ const ShopContextProvider = (props) => {
       try {
         await axios.post(
           `${backendUrl}/api/cart/add`,
-          { itemId, selectedVariant },
+          { itemId, selectedVariant, quantity },
           { headers: { token } }
         );
       } catch (error) {
@@ -99,6 +104,19 @@ const ShopContextProvider = (props) => {
     }
 
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          `${backendUrl}/api/cart/update`,
+          { itemId, selectedVariant, quantity },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+      }
+    }
   };
 
   //get cart amount
@@ -120,6 +138,28 @@ const ShopContextProvider = (props) => {
     }
     return totalAmount;
   };
+
+  //get user cart data
+  useEffect(() => {
+    const getUserCart = async (token) => {
+      try {
+        const response = await axios.post(`${backendUrl}/api/cart/get`, {
+          headers: { token },
+        });
+        if (response.data.success) {
+          setCartItems(response.data.cart);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message);
+      }
+    };
+
+    if (!token && localStorage.getItem("token")) {
+      setToken(localStorage.getItem("token"));
+      getUserCart(localStorage.getItem("token"));
+    }
+  }, [token, backendUrl]);
 
   //get products data
 
