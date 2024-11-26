@@ -81,7 +81,8 @@ const Orders = () => {
 
               <div className="flex items-center gap-2">
                 <span className="block w-2 h-2 rounded-full bg-green-500"></span>
-                <p className="text-sm md:text-base">{item.status}</p>
+                <p className="text-sm md:text-base">{item.status}</p>{" "}
+                <span className="text-gray-600">{item.paymentMethod}</span>
               </div>
 
               <button
