@@ -43,6 +43,10 @@ const placeOrder = async (req, res) => {
 // Placing orders using Razorpay Method
 const placeOrderRazorpay = async (req, res) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
     const { userId, items, amount, address } = req.body;
 
     const orderData = {
@@ -57,6 +61,7 @@ const placeOrderRazorpay = async (req, res) => {
 
     const newOrder = new orderModel(orderData);
     await newOrder.save();
+    console.log(newOrder);
 
     const options = {
       amount: amount * 100,
@@ -69,7 +74,11 @@ const placeOrderRazorpay = async (req, res) => {
         console.log(error);
         return res.json({ success: false, message: error });
       }
-      res.json({ success: true, order });
+      res.json({
+        success: true,
+        order: order.id,
+        receipt: newOrder._id.toString(),
+      });
     });
   } catch (error) {
     console.log(error);
@@ -84,6 +93,7 @@ const verifyRazorpay = async (req, res) => {
 
     const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
     if (orderInfo.status === "paid") {
+      console.log(orderInfo);
       await orderModel.findByIdAndUpdate(orderInfo.receipt, { payment: true });
       await userModel.findByIdAndUpdate(userId, { cartData: {} });
       res.json({ success: true, message: "Payment Successful" });
