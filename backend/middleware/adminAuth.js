@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 const adminAuth = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
+    console.log("authorization is", authorization);
 
     if (!authorization) {
       return res.json({

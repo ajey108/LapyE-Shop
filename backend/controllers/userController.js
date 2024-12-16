@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 // Function to create a JWT token
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "24hr" });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "24h" });
 };
 
 // Login user
@@ -110,7 +110,7 @@ const adminLogin = async (req, res) => {
     ) {
       // Generate a token with a payload that contains the email
       const token = jwt.sign({ email }, process.env.JWT_SECRET, {
-        expiresIn: "24hr",
+        expiresIn: "24h",
       });
 
       res.json({ success: true, token });

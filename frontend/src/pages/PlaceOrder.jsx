@@ -15,10 +15,9 @@ const PlaceOrder = () => {
     cartItems,
     setCartItems,
     getCartAmount,
-    products,
     delivery_fee,
+    products,
   } = useContext(ShopContext);
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -26,19 +25,18 @@ const PlaceOrder = () => {
     street: "",
     city: "",
     state: "",
-    zipCode: "",
+    zipcode: "",
     country: "",
     phone: "",
   });
 
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
-  // eslint-disable-next-line no-unused-vars
   const initPay = (order) => {
-    console.log("initPay called with order:", order);
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY_ID,
       amount: order.amount,
@@ -48,41 +46,32 @@ const PlaceOrder = () => {
       order_id: order.id,
       receipt: order.receipt,
       handler: async (response) => {
-        console.log("Payment successful", response);
+        console.log(response);
         try {
           const { data } = await axios.post(
-            `${backendUrl}/api/order/verifyRazorpay`,
+            backendUrl + "/api/order/verifyRazorpay",
             response,
             { headers: { token } }
           );
           if (data.success) {
-            setCartItems({});
             navigate("/orders");
-          } else {
-            toast.error(data.message);
+            setCartItems({});
           }
         } catch (error) {
-          console.error("Error placing order", error);
-          toast.error(error.response?.data?.message || "Error placing order.");
+          console.log(error);
+          toast.error(error);
         }
       },
     };
-
-    if (window.Razorpay) {
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } else {
-      console.error("Razorpay script not loaded");
-    }
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
-  // Submit handler function
-  const onSubmitHandler = async (e) => {
-    console.log("onSubmitHandler started");
-    e.preventDefault();
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
     try {
-      console.log("Inside try block");
       let orderItems = [];
+
       for (const items in cartItems) {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
@@ -98,21 +87,17 @@ const PlaceOrder = () => {
         }
       }
 
-      const orderData = {
-        userId: token,
-        items: orderItems,
+      let orderData = {
         address: formData,
+        items: orderItems,
         amount: getCartAmount() + delivery_fee,
-        paymentMethod: method,
-        payment: false,
-        date: Date.now(),
       };
 
       switch (method) {
-        case "cod": {
-          console.log("cod triggered");
+        // API Calls for COD
+        case "cod":
           const response = await axios.post(
-            `${backendUrl}/api/order/place`,
+            backendUrl + "/api/order/place",
             orderData,
             { headers: { token } }
           );
@@ -123,36 +108,28 @@ const PlaceOrder = () => {
             toast.error(response.data.message);
           }
           break;
-        }
 
-        // Razorpay payment method
-        case "razorpay": {
-          console.log("Razorpay method selected");
+        // API Calls for Razorpay
 
+        case "razorpay":
           const responseRazorpay = await axios.post(
-            `${backendUrl}/api/order/razorpay`,
+            backendUrl + "/api/order/razorpay",
             orderData,
             { headers: { token } }
           );
           if (responseRazorpay.data.success) {
-            console.log("Razorpay response:", responseRazorpay.data);
-            // ...
-          } else {
-            console.error("Error:", responseRazorpay.data.message);
-            toast.error(responseRazorpay.data.message);
+            initPay(responseRazorpay.data.order);
           }
+
           break;
-        }
 
         default:
-          toast.error("Invalid payment method.");
           break;
       }
     } catch (error) {
-      console.error("Error placing order", error);
-      toast.error("Error placing order.");
+      console.log(error);
+      toast.error(error.message);
     }
-    console.log("onSubmitHandler finished");
   };
 
   return (
