@@ -141,25 +141,35 @@ const ShopContextProvider = (props) => {
 
   //get user cart data
   useEffect(() => {
-    const getUserCart = async (token) => {
+    const getUserCart = async () => {
+      const localToken = localStorage.getItem("token");
+      if (!localToken) return;
+
       try {
-        const response = await axios.post(`${backendUrl}/api/cart/get`, {
-          headers: { token },
-        });
+        const response = await axios.post(
+          `${backendUrl}/api/cart/get`,
+          {},
+          {
+            headers: { Authorization: `Bearer ${localToken}` },
+          }
+        );
+        console.log("response", response);
+
         if (response.data.success) {
           setCartItems(response.data.cart);
+        } else {
+          toast.error(response.data.message);
+          localStorage.removeItem("token");
+          // Optionally redirect to login
         }
       } catch (error) {
         console.log(error);
-        toast.error(error.response.data.message);
+        toast.error(error.response?.data?.message || "An error occurred");
       }
     };
 
-    if (!token && localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
-      getUserCart(localStorage.getItem("token"));
-    }
-  }, [token, backendUrl]);
+    getUserCart();
+  }, [backendUrl]);
 
   //get products data
 

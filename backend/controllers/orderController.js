@@ -43,14 +43,15 @@ const placeOrder = async (req, res) => {
 // Placing orders using Razorpay Method
 const placeOrderRazorpay = async (req, res) => {
   try {
+    console.log("req.user:", req.user);
     if (!req.user) {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }
 
-    const { userId, items, amount, address } = req.body;
+    const { items, amount, address } = req.body;
 
     const orderData = {
-      userId,
+      userId: req.user.id,
       items,
       address,
       amount,
@@ -58,6 +59,8 @@ const placeOrderRazorpay = async (req, res) => {
       payment: false,
       date: Date.now(),
     };
+
+    console.log("orderData:", orderData);
 
     const newOrder = new orderModel(orderData);
     await newOrder.save();
@@ -69,16 +72,18 @@ const placeOrderRazorpay = async (req, res) => {
       receipt: newOrder._id.toString(),
     };
 
-    await razorpayInstance.orders.create(options, (error, order) => {
-      if (error) {
-        console.log(error);
-        return res.json({ success: false, message: error });
-      }
-      res.json({
-        success: true,
-        order: order.id,
-        receipt: newOrder._id.toString(),
+    const order = await razorpayInstance.orders.create(options);
+    if (!order) {
+      return res.json({
+        success: false,
+        message: "Payment failed. Please try again.",
       });
+    }
+
+    res.json({
+      success: true,
+      order: order.id,
+      receipt: newOrder._id.toString(),
     });
   } catch (error) {
     console.log(error);

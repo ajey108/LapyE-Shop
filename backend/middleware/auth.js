@@ -1,22 +1,39 @@
 import jwt from "jsonwebtoken";
 
 const authUser = async (req, res, next) => {
-  const { token } = req.headers;
-  console.log("token is", token);
-
-  if (!token) {
-    return res.json({ success: false, message: "Not Authorized Login Again" });
-  }
-
   try {
+    // Extract the token from Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Not Authorized. Login Again" });
+    }
+    const token = authHeader.split(" ")[1];
+
+    // Verify the token
     const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-    req.body.userId = token_decode.id;
-    console.log("token_decode", token_decode);
+
+    // Attach user info to the request
+    req.user = { id: token_decode.id };
+
+    // Continue to the next middleware
     next();
-    console.log(next);
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
+    console.error("Error in auth middleware:", error);
+
+    // Handle JWT errors
+    if (error.name === "TokenExpiredError") {
+      return res
+        .status(401)
+        .json({ success: false, message: "Session expired. Login again." });
+    }
+    if (error.name === "JsonWebTokenError") {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid token. Login again." });
+    }
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
 

@@ -63,8 +63,10 @@ const getUserCart = async (req, res) => {
   try {
     const { userId } = req.body;
     const userData = await userModel.findById(userId);
-    //extract cart data
-    let cartData = await userData.cartData;
+    if (!userData) {
+      return res.json({ success: false, message: "User not found" });
+    }
+    let cartData = userData.cartData ? userData.cartData : []; // add a default value if cartData is null
 
     res.json({ success: true, cartData });
   } catch (error) {
