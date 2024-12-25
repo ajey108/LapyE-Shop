@@ -36,39 +36,6 @@ const PlaceOrder = () => {
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
-  const initPay = (order) => {
-    const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: order.amount,
-      currency: order.currency,
-      name: "Order Payment",
-      description: "Order Payment",
-      order_id: order.id,
-      receipt: order.receipt,
-      handler: async (response) => {
-        console.log(response);
-        try {
-          const { data } = await axios.post(
-            backendUrl + "/api/order/verifyRazorpay",
-            response,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-          if (data.success) {
-            navigate("/orders");
-            setCartItems({});
-          }
-        } catch (error) {
-          console.log(error);
-          toast.error(error);
-        }
-      },
-    };
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
-
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -89,15 +56,27 @@ const PlaceOrder = () => {
         }
       }
 
+      const userId = localStorage.getItem("userId");
+      console.log("User ID:", userId); // Log the userId to ensure it is correct
+
+      if (!userId) {
+        toast.error("User ID is missing. Please log in again.");
+        return;
+      }
+
       let orderData = {
         address: formData,
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
+        userId: userId, // Ensure userId is included
       };
+
+      const token = localStorage.getItem("token");
+      console.log("Token:", token); // Log the token to ensure it is correct
 
       switch (method) {
         // API Calls for COD
-        case "cod":
+        case "cod": {
           const response = await axios.post(
             backendUrl + "/api/order/place",
             orderData,
@@ -105,6 +84,7 @@ const PlaceOrder = () => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
+          console.log("COD response:", response.data); // Log the response data
           if (response.data.success) {
             setCartItems({});
             navigate("/orders");
@@ -112,22 +92,25 @@ const PlaceOrder = () => {
             toast.error(response.data.message);
           }
           break;
+        }
 
-        // API Calls for Razorpay
-
-        case "razorpay":
-          const responseRazorpay = await axios.post(
-            backendUrl + "/api/order/razorpay",
+        // API Calls for Stripe
+        case "stripe": {
+          const responseStripe = await axios.post(
+            backendUrl + "/api/order/stripe",
             orderData,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
-          if (responseRazorpay.data.success) {
-            initPay(responseRazorpay.data.order);
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
+          } else {
+            toast.error(responseStripe.data.message);
           }
-
           break;
+        }
 
         default:
           break;
@@ -239,18 +222,18 @@ const PlaceOrder = () => {
         <div className="mt-12">
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
-              onClick={() => setMethod("razorpay")}
+              onClick={() => setMethod("stripe")}
               className={`flex items-center gap-3 border p-2 px-3 cursor-pointer ${
                 method === "razorpay" ? "bg-green-100" : "bg-gray-100"
               }`}
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
-                  method === "razorpay" ? "bg-green-400" : ""
+                  method === "stripe" ? "bg-green-400" : ""
                 }`}
               ></p>
-              <SiRazorpay className="text-blue-500" />
-              <span>Razorpay</span>
+              <SiRazorpay className="text-yellow-500" />
+              <span>Stripe</span>
             </div>
             <div
               onClick={() => setMethod("cod")}

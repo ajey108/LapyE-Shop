@@ -59,7 +59,9 @@ const ShopContextProvider = (props) => {
         await axios.post(
           `${backendUrl}/api/cart/add`,
           { itemId, selectedVariant, quantity },
-          { headers: { token } }
+          {
+            headers: { authorization: `Bearer ${token}` },
+          }
         );
       } catch (error) {
         console.log(error);
@@ -110,7 +112,9 @@ const ShopContextProvider = (props) => {
         await axios.post(
           `${backendUrl}/api/cart/update`,
           { itemId, selectedVariant, quantity },
-          { headers: { token } }
+          {
+            headers: { authorization: `Bearer ${token}` },
+          }
         );
       } catch (error) {
         console.log(error);
@@ -150,15 +154,15 @@ const ShopContextProvider = (props) => {
           `${backendUrl}/api/cart/get`,
           {},
           {
-            headers: { Authorization: `Bearer ${localToken}` },
+            headers: { authorization: `Bearer ${localToken}` },
           }
         );
         console.log("response", response);
 
-        if (response.data.success) {
+        if (response.data.success && response.data.cart) {
           setCartItems(response.data.cart);
         } else {
-          toast.error(response.data.message);
+          toast.error(response.data.message || "Failed to retrieve cart");
           localStorage.removeItem("token");
           // Optionally redirect to login
         }

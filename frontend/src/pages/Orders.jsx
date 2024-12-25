@@ -12,20 +12,23 @@ const Orders = () => {
   const loadOrderData = useCallback(async () => {
     try {
       if (!token) {
+        console.error("Token is missing");
         return null;
       }
+      console.log("Token:", token); // Log the token to ensure it is correct
+
       const response = await axios.post(
         `${backendUrl}/api/order/userorders`,
         {},
         {
-          headers: { token },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       console.log(response.data);
       if (response.data.success) {
         let allOrdersItem = [];
-        response.data.orders.map((order) => {
-          order.items.map((item) => {
+        response.data.orders.forEach((order) => {
+          order.items.forEach((item) => {
             item["status"] = order.status;
             item["paymentMethod"] = order.paymentMethod;
             item["date"] = order.date;
@@ -36,7 +39,7 @@ const Orders = () => {
         setOrderData(allOrdersItem.reverse());
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error loading order data:", error);
     }
   }, [token, backendUrl]);
 
@@ -75,7 +78,7 @@ const Orders = () => {
 
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 mt-4 md:mt-0">
               <p className="text-sm md:text-base">
-                Date:{new Date(item.date).toDateString()}
+                Date: {new Date(item.date).toDateString()}
                 <span className="font-medium text-gray-600"></span>
               </p>
 

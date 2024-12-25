@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -26,6 +24,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userId", response.data.userId); // Store userId in localStorage
         } else {
           toast.error(response.data.message);
         }
@@ -38,6 +37,7 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("userId", response.data.userId); // Store userId in localStorage
         } else {
           toast.error(response.data.message);
         }
@@ -48,8 +48,7 @@ const Login = () => {
     }
   };
 
-  //redirect user to home
-
+  // Redirect user to home
   useEffect(() => {
     if (token) {
       navigate("/");
@@ -94,7 +93,7 @@ const Login = () => {
         type="Password"
       />
       <div className="w-full flex justify-around text-sm mt-[-8px] ">
-        <p className="text-gray-400 ">Forgot you password</p>
+        <p className="text-gray-400 ">Forgot your password</p>
         {currentState === "Login" ? (
           <p onClick={() => setCurrentState("Sign up")}>Create account</p>
         ) : (
