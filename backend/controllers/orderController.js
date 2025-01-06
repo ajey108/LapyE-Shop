@@ -143,7 +143,8 @@ const allOrders = async (req, res) => {
 // User Order Data For Forntend
 const userOrders = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { _id: userId } = req.user;
+    console.log("req is", req.user);
 
     const orders = await orderModel.find({ userId });
     res.json({ success: true, orders });

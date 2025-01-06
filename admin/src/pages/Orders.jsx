@@ -41,7 +41,7 @@ const Orders = ({ token }) => {
     if (!orderId || !token) return;
 
     try {
-      const response = await axios.post(
+      const response = await axios.get(
         `${backendUrl}/api/order/status`,
         {
           orderId,
