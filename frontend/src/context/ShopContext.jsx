@@ -15,6 +15,7 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(true);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
+  console.log(token);
   console.log(cartItems);
 
   const [products, setProducts] = useState([]);
@@ -197,8 +198,9 @@ const ShopContextProvider = (props) => {
 
   //set token from local storage
   useEffect(() => {
-    if (!token && localStorage.getItem("token")) {
-      setToken(localStorage.getItem("token"));
+    const localToken = localStorage.getItem("token");
+    if (localToken && !token) {
+      setToken(localToken);
     }
   }, [token]);
 
@@ -221,6 +223,8 @@ const ShopContextProvider = (props) => {
     token,
     setToken,
   };
+
+  console.log("value of token ", value);
 
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>

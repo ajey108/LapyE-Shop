@@ -7,8 +7,8 @@ import { toast } from "react-toastify";
 const Orders = () => {
   console.log("page loaded Now");
   const { backendUrl, token, currency } = useContext(ShopContext);
+
   const [orderData, setOrderData] = useState([]);
-  console.log("Order Data:", orderData);
 
   const loadOrderData = useCallback(async () => {
     try {
@@ -18,10 +18,14 @@ const Orders = () => {
       }
       console.log("Token in order.jsx is :", token); // Log the token to ensure it is correct
 
-      const response = await axios.post(`${backendUrl}/api/order/userorders`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log("response is", response.data);
+      const response = await axios.post(
+        `${backendUrl}/api/order/userorders`,
+        orderData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("response orders", response);
       if (response.data.success) {
         let allOrdersItem = [];
         response.data.orders.forEach((order) => {

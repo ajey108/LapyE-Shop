@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+
 //app config
 
 const app = express();
@@ -15,6 +16,7 @@ connectDB();
 connectCloudinary();
 
 //middlewares
+
 app.use(express.json());
 app.use(cors());
 

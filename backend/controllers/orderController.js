@@ -12,7 +12,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Placing orders using COD Method
 const placeOrder = async (req, res) => {
   try {
-    const { userId, items, amount, address } = req.body;
+    const { items, amount, address } = req.body;
+    const userId = req.user.id;
 
     if (!userId) {
       return res
@@ -143,10 +144,11 @@ const allOrders = async (req, res) => {
 // User Order Data For Forntend
 const userOrders = async (req, res) => {
   try {
-    const { _id: userId } = req.user;
+    const { id: userId } = req.user;
     console.log("req is", req.user);
 
     const orders = await orderModel.find({ userId });
+    console.log("orders are", orders, userId);
     res.json({ success: true, orders });
   } catch (error) {
     console.log(error);

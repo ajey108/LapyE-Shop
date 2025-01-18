@@ -1,23 +1,24 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { ShopContext } from "../context/ShopContext";
+
 import { SiRazorpay } from "react-icons/si";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 
 const PlaceOrder = () => {
-  console.log("page loaded Now");
   const [method, setMethod] = useState("cod");
   const {
     navigate,
     backendUrl,
-    token,
     cartItems,
     setCartItems,
+    token,
     getCartAmount,
     delivery_fee,
     products,
   } = useContext(ShopContext);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -56,40 +57,40 @@ const PlaceOrder = () => {
         }
       }
 
-      const userId = localStorage.getItem("userId");
-      console.log("User ID:", userId); // Log the userId to ensure it is correct
-
-      if (!userId) {
-        toast.error("User ID is missing. Please log in again.");
-        return;
-      }
-
       let orderData = {
         address: formData,
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
-        userId: userId, // Ensure userId is included
       };
-
-      const token = localStorage.getItem("token");
-      console.log("Token:", token); // Log the token to ensure it is correct
 
       switch (method) {
         // API Calls for COD
+
         case "cod": {
-          const response = await axios.post(
-            backendUrl + "/api/order/place",
-            orderData,
-            {
-              headers: { Authorization: `Bearer ${token}` },
+          // Log the token and the Authorization header before the request
+          console.log("Token being sent:", token);
+          console.log("Authorization header:", `Bearer ${token}`);
+
+          try {
+            const response = await axios.post(
+              backendUrl + "/api/order/place",
+              orderData,
+              {
+                headers: { Authorization: `Bearer ${token}` }, // Ensure proper format
+              }
+            );
+            console.log("COD response:", response.data); // Log the response data
+            if (response.data.success) {
+              setCartItems({});
+              navigate("/orders");
+            } else {
+              toast.error(response.data.message);
             }
-          );
-          console.log("COD response:", response.data); // Log the response data
-          if (response.data.success) {
-            setCartItems({});
-            navigate("/orders");
-          } else {
-            toast.error(response.data.message);
+          } catch (error) {
+            console.error(
+              "Error placing order:",
+              error.response?.data || error.message
+            );
           }
           break;
         }
