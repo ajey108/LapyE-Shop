@@ -20,6 +20,8 @@ const Orders = ({ token }) => {
         }
       );
 
+      // console.log("orders status response is", response);
+
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
@@ -39,10 +41,12 @@ const Orders = ({ token }) => {
   // Handle order status updates
   const statusHandler = async (event, orderId) => {
     if (!orderId || !token) return;
+    console.log("order id and toke are", orderId, token);
 
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `${backendUrl}/api/order/status`,
+
         {
           orderId,
           status: event.target.value,
@@ -53,6 +57,8 @@ const Orders = ({ token }) => {
           },
         }
       );
+
+      console.log("order status response:", response);
 
       if (response.data.success) {
         toast.success("Order status updated!");
