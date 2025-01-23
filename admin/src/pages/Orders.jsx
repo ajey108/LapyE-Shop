@@ -58,8 +58,6 @@ const Orders = ({ token }) => {
         }
       );
 
-      console.log("order status response:", response);
-
       if (response.data.success) {
         toast.success("Order status updated!");
         await fetchAllOrders(); // Refresh orders after status update
