@@ -15,25 +15,28 @@ const BestSeller = () => {
     }
   }, [products]);
   return (
-    <div className="my-10 bg-gray-100">
-      <div className="text-center py-8 text-3xl">
-        <Title text1={"Best"} text2={"Seller"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-500">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, et.
-        </p>
+    <section className="py-16 px-4 border-b-4 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center text-3xl mb-12">
+          <Title text1="Best" text2="Sellers" />
+          <p className="max-w-2xl mx-auto text-gray-600 text-lg">
+            Discover our most popular products loved by customers worldwide.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 px-4">
+          {bestSellers.map((item, index) => (
+            <ProductItem
+              key={index}
+              id={item._id}
+              image={item.image[0]}
+              name={item.name}
+              price={item.price}
+            />
+          ))}
+        </div>
       </div>
-      <div className="grid pl-[70px] grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 gap-2 gap-y-6">
-        {bestSellers.map((item, index) => (
-          <ProductItem
-            key={index}
-            id={item._id}
-            image={item.image[0]} // Access the first image in the array
-            name={item.name}
-            price={item.price}
-          />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 };
 

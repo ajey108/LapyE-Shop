@@ -18,7 +18,7 @@ const SearchBar = () => {
   }, [location, setShowSearch]);
 
   return showSearch ? (
-    <div className="border-t border-b bg-gray-50 text-center cursor-pointer rounded-full mb-2 ">
+    <div className="border-t border-b bg-gray-50 text-center cursor-pointer w-[300px] rounded-full mb-2 ">
       <div className="inline-flex items-center justify-center border-gray-400 px-5">
         <input
           type="text"

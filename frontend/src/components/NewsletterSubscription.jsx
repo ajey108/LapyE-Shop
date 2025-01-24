@@ -1,29 +1,26 @@
 const NewsletterSubscription = () => {
   return (
-    <div className="text-center">
-      <p className="text-2xl font-medium text-gray-800">
-        Subscribe now & get 20% off
-      </p>
-      <p className="text-gray-400 mt-3">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.{" "}
+    <div className="  p-6 rounded-lg shadow-lg max-w-[90%] my-4 mx-auto text-center">
+      <p className="text-3xl font-bold">Subscribe & Save 20%!</p>
+      <p className=" mt-3">
+        Join our newsletter and stay updated with exclusive offers and updates.
       </p>
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3"
+        className="mt-6 flex flex-col sm:flex-row items-center gap-3"
       >
         <input
-          className="w-full sm:flex-1 outline-none"
-          type="text"
-          placeholder="Enter your email id"
+          className="flex-1 px-4 py-3 rounded-md outline-none border border-gray-300 focus:ring-2 focus:ring-blue-300"
+          type="email"
+          placeholder="Enter your email address"
           required
         />
         <button
-          className="bg-black text-white text-xs px-10 py-4"
+          className="bg-gray-900 text-white font-semibold px-6 py-3 rounded-md shadow-md hover:bg-gray-500 transition duration-200"
           type="submit"
         >
-          SUBSCRIBE
+          Subscribe
         </button>
       </form>
     </div>
