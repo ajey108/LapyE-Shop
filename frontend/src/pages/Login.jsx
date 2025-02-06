@@ -60,7 +60,7 @@ const Login = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col items-center w-[90%] max-w-[500px] m-auto mt-14 mb-4 gap-4 cursor-pointer"
+      className="flex flex-col items-center w-[90%] max-w-[500px] m-auto mt-14 mb-44 gap-4 cursor-pointer"
       method="post"
       action=""
     >

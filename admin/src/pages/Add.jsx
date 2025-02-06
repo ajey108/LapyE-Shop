@@ -66,16 +66,6 @@ const Add = ({ token }) => {
     }
   };
 
-  // Function to handle adding new specs
-  const addSpec = () => {
-    setSpecs([...specs, ""]);
-  };
-
-  // Function to handle removing a spec
-  const removeSpec = (index) => {
-    setSpecs(specs.filter((_, i) => i !== index));
-  };
-
   // Function to handle spec input change
   const handleSpecChange = (index, value) => {
     const newSpecs = [...specs];
@@ -150,24 +140,8 @@ const Add = ({ token }) => {
                 className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
                 required
               />
-              {specs.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeSpec(index)}
-                  className="bg-red-500 text-white px-3 py-1 rounded-lg"
-                >
-                  Remove
-                </button>
-              )}
             </div>
           ))}
-          <button
-            type="button"
-            onClick={addSpec}
-            className="mt-2 bg-blue-500 text-white px-3 py-2 rounded-lg"
-          >
-            Add Spec
-          </button>
         </div>
 
         {/* Product Category */}

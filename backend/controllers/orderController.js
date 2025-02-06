@@ -49,9 +49,18 @@ const placeOrder = async (req, res) => {
 
 // Placing orders using Stripe Method
 const placeOrderStripe = async (req, res) => {
+  console.log("Stripe order request body:", req.body);
+  console.log("Stripe order user ID from auth middleware:", req.user.id);
   try {
-    const { userId, items, amount, address } = req.body;
-    console.log(userId, items, amount, address);
+    const { items, amount, address } = req.body;
+    const userId = req.user.id;
+    console.log(
+      "place order stripe payload is",
+      userId,
+      items,
+      amount,
+      address
+    );
     const { origin } = req.headers;
 
     if (!userId) {
@@ -63,7 +72,7 @@ const placeOrderStripe = async (req, res) => {
     console.log("User ID:", userId);
 
     const orderData = {
-      userId,
+      userId: req.user.id,
       items,
       address,
       amount,
@@ -114,6 +123,7 @@ const placeOrderStripe = async (req, res) => {
 // Verify Stripe
 const verifyStripe = async (req, res) => {
   const { orderId, success, userId } = req.body;
+  console.log("verifyStipe", userId, orderId, success);
 
   try {
     if (success === "true") {

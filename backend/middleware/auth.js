@@ -5,7 +5,7 @@ const authUser = async (req, res, next) => {
     // Extract the token from Authorization header
     const authHeader = req.headers.authorization;
     console.log("authHeader is", authHeader);
-    console.log("All headers:", req.headers);
+    console.log("All headers from auth middleware:", req.headers);
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res

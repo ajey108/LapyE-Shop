@@ -69,7 +69,7 @@ const PlaceOrder = () => {
         case "cod": {
           // Log the token and the Authorization header before the request
           console.log("Token being sent:", token);
-          console.log("Authorization header:", `Bearer ${token}`);
+          console.log("Authorization header:", `Bearer ${token} {header}`);
 
           try {
             const response = await axios.post(
@@ -97,6 +97,7 @@ const PlaceOrder = () => {
 
         // API Calls for Stripe
         case "stripe": {
+          console.log("orderData from stripe is:", orderData);
           const responseStripe = await axios.post(
             backendUrl + "/api/order/stripe",
             orderData,
@@ -104,6 +105,7 @@ const PlaceOrder = () => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
+
           if (responseStripe.data.success) {
             const { session_url } = responseStripe.data;
             window.location.replace(session_url);

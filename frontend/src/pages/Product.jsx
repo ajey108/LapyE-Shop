@@ -11,6 +11,7 @@ const Product = () => {
   const [selectedVariant, setSelectedVariant] = useState(""); // State for selected variant
 
   console.log(products);
+  console.log("product data from product.jsx is", productData);
 
   useEffect(() => {
     const fetchProductData = () => {
@@ -19,7 +20,7 @@ const Product = () => {
       if (foundProduct) {
         setProductData(foundProduct);
         setImage(foundProduct.image[0]); // Set the first image
-        setSelectedVariant(foundProduct.variants[0]); // Set the first variant as default
+        setSelectedVariant(foundProduct.variants[0].trim()); // Set the first variant as default
         console.log(`the variant is ${selectedVariant}`);
       } else {
         console.log("Product not found");
@@ -29,7 +30,7 @@ const Product = () => {
     if (products && products.length > 0) {
       fetchProductData(); // Fetch product when products are available
     }
-  }, [productId, products, selectedVariant]);
+  }, [productId, products]);
 
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 bg-gray-100 text-black mb-3">
@@ -79,7 +80,9 @@ const Product = () => {
                   setSelectedVariant(variant);
                 }}
                 className={`border py-2 px-3 ml-2 bg-gray-300 ${
-                  selectedVariant === variant ? "bg-gray-800 text-white" : ""
+                  selectedVariant === variant.trim()
+                    ? "bg-gray-800 text-white"
+                    : ""
                 }`}
               >
                 {variant} {/* Display the variant */}
