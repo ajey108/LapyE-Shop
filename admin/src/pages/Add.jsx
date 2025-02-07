@@ -12,7 +12,7 @@ const Add = ({ token }) => {
   const [category, setCategory] = useState("Gaming");
   const [variants, setVariants] = useState([]);
   const [bestseller, setBestseller] = useState(true);
-  const [specs, setSpecs] = useState([""]); // Updated to store multiple specs
+  const [specs, setSpecs] = useState([""]); // Allow multiple specs
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,19 +31,17 @@ const Add = ({ token }) => {
       formData.append("category", category);
       formData.append("bestseller", bestseller);
       formData.append("specs", JSON.stringify(specs));
-      variants.forEach((variant) => formData.append("variants[]", variant));
+      formData.append("variants", JSON.stringify(variants));
 
       const response = await axios.post(
         `${backendUrl}/api/product/add`,
         formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (response.data && response.data.success) {
         toast.success(response.data.message);
-        // Reset form after successful submission
+        // Reset form
         setName("");
         setImage(null);
         setDescription("");
@@ -56,21 +54,9 @@ const Add = ({ token }) => {
         toast.error(response.data.message || "Unexpected response");
       }
     } catch (error) {
-      console.error("Error response:", error.response); // Log error response
-      if (error.response && error.response.data) {
-        // Attempt to show backend error message if available
-        toast.error(error.response.data.message || "Server Error");
-      } else {
-        toast.error("Error adding product");
-      }
+      console.error("Error response:", error.response);
+      toast.error(error.response?.data?.message || "Server Error");
     }
-  };
-
-  // Function to handle spec input change
-  const handleSpecChange = (index, value) => {
-    const newSpecs = [...specs];
-    newSpecs[index] = value;
-    setSpecs(newSpecs);
   };
 
   return (
@@ -86,11 +72,13 @@ const Add = ({ token }) => {
             {!image ? (
               <FaCloudUploadAlt size={20} />
             ) : (
-              <img
-                className="w-[50px] h-[50px]"
-                src={URL.createObjectURL(image)}
-                alt="upload"
-              />
+              image && (
+                <img
+                  className="w-[50px] h-[50px]"
+                  src={URL.createObjectURL(image)}
+                  alt="upload"
+                />
+              )
             )}
             <span className="text-sm">Choose an image</span>
             <input
@@ -103,54 +91,74 @@ const Add = ({ token }) => {
         </div>
 
         {/* Product Name */}
-        <div className="space-y-2">
+        <div>
           <p className="text-lg">Product Name</p>
           <input
             onChange={(e) => setName(e.target.value)}
             value={name}
             type="text"
             placeholder="Type here"
-            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
+            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
 
         {/* Product Description */}
-        <div className="space-y-2">
+        <div>
           <p className="text-lg">Product Description</p>
           <textarea
             onChange={(e) => setDescription(e.target.value)}
             value={description}
             placeholder="Description here"
-            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
+            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
 
         {/* Product Specs */}
-        <div className="space-y-2">
+        <div>
           <p className="text-lg">Product Specs</p>
           {specs.map((spec, index) => (
-            <div key={index} className="flex space-x-2">
+            <div key={index} className="flex space-x-2 items-center">
               <input
                 type="text"
                 value={spec}
-                onChange={(e) => handleSpecChange(index, e.target.value)}
+                onChange={(e) =>
+                  setSpecs((prev) =>
+                    prev.map((item, i) => (i === index ? e.target.value : item))
+                  )
+                }
                 placeholder="Enter spec"
-                className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
+                className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
+              <button
+                type="button"
+                className="bg-red-500 px-2 py-1 text-white rounded"
+                onClick={() =>
+                  setSpecs((prev) => prev.filter((_, i) => i !== index))
+                }
+              >
+                X
+              </button>
             </div>
           ))}
+          <button
+            type="button"
+            onClick={() => setSpecs([...specs, ""])}
+            className="mt-2 bg-blue-500 text-white px-3 py-1 rounded"
+          >
+            + Add Spec
+          </button>
         </div>
 
         {/* Product Category */}
-        <div className="space-y-2">
+        <div>
           <p className="text-lg">Product Category</p>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
+            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             <option value="Professional">Professional</option>
             <option value="OfficeWork">Office Work</option>
@@ -159,25 +167,26 @@ const Add = ({ token }) => {
         </div>
 
         {/* Product Price */}
-        <div className="space-y-2">
+        <div>
           <p className="text-lg">Product Price</p>
           <input
             onChange={(e) => setPrice(e.target.value)}
             value={price}
             type="number"
             placeholder="25"
-            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:green-500"
+            className="w-full p-3 rounded-lg bg-gray-800 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
 
         {/* Product Variants */}
-        <div className="space-y-2">
+        <div>
           <p className="text-lg">Product Variants</p>
           <div className="flex flex-wrap gap-4">
             {["8GB/256GB/512GB", "16GB/1TB"].map((variant) => (
               <button
                 key={variant}
+                type="button"
                 onClick={() =>
                   setVariants((prev) =>
                     prev.includes(variant)
@@ -190,7 +199,6 @@ const Add = ({ token }) => {
                     ? "bg-green-500 text-white"
                     : "bg-gray-700 text-gray-300"
                 }`}
-                title={`Select ${variant}`}
               >
                 {variant}
               </button>
