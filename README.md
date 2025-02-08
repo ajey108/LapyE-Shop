@@ -8,17 +8,27 @@
 
 🏠 Home Page   
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/f5cec19cf73e40f2aa19558d17842645a7ca1317/Homepage.png)
+
+ 
  
 🛍️ Product Page
+
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/ProductPageSS.png)
+
+ 
 
 🛒 Cart Page
 
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/cartpagess.png)
 
+ 💵Payment Pagge
+
+  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/PaymentPage.png)
+
 🔑 User Dashboard
 
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/My%20orders%20page.png)
+ 
 
 🔧 Admin Panel
 
