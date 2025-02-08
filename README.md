@@ -8,20 +8,21 @@
 
 🏠 Home Page   
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/f5cec19cf73e40f2aa19558d17842645a7ca1317/Homepage.png)
+ 
 🛍️ Product Page
- ![Image Alt](image_url)
+ ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/ProductPageSS.png)
 
 🛒 Cart Page
 
- ![Image Alt](image_url)
+ ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/cartpagess.png)
 
 🔑 User Dashboard
 
- ![Image Alt](image_url)
+ ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/40e39de86982569f2000bbb19449b6db1dbe7910/My%20orders%20page.png)
 
 🔧 Admin Panel
 
- ![Image Alt](image_url)
+ ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/3205cdbb051e41f286bddeb752c7a05936b5357b/AdminLIst.png)
 
 🛠️ Tech Stack
 
