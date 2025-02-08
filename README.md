@@ -9,19 +9,19 @@
 🏠 Home Page   
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/f5cec19cf73e40f2aa19558d17842645a7ca1317/Homepage.png)
 🛍️ Product Page
-
+ ![Image Alt](image_url)
 
 🛒 Cart Page
 
-
+ ![Image Alt](image_url)
 
 🔑 User Dashboard
 
-
+ ![Image Alt](image_url)
 
 🔧 Admin Panel
 
-
+ ![Image Alt](image_url)
 
 🛠️ Tech Stack
 
