@@ -38,7 +38,7 @@ const Footer = () => {
 
         {/* Portfolio */}
         <a
-          href="https://yourportfolio.com"
+          href="ajay108portfolio.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-400 hover:text-white transition duration-300 text-2xl"

@@ -10,8 +10,8 @@ const Product = () => {
   const [image, setImage] = useState("");
   const [selectedVariant, setSelectedVariant] = useState(""); // State for selected variant
 
-  console.log(products);
-  console.log("product data from product.jsx is", productData);
+  // console.log(products);
+  // console.log("product data from product.jsx is", productData);
 
   useEffect(() => {
     const fetchProductData = () => {

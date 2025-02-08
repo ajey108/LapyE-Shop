@@ -5,7 +5,7 @@ import { FaCalendarCheck } from "react-icons/fa6";
 
 const Sidebar = () => {
   return (
-    <div className="bg-gray-800 text-white h-[1000px] p-4">
+    <div className="bg-gray-800 text-white h-screen w-64 fixed top-0 left-0 p-4 overflow-y-auto">
       <nav className="space-y-4">
         {/* Add Item */}
         <NavLink
@@ -13,7 +13,7 @@ const Sidebar = () => {
           to="/add"
         >
           <MdAddCircle className="text-2xl" />
-          <p className="hidden md:block">Add Items</p>
+          <p className="text-sm">Add Items</p>
         </NavLink>
 
         {/* List Items */}
@@ -22,7 +22,7 @@ const Sidebar = () => {
           to="/list"
         >
           <FaRegListAlt className="text-2xl" />
-          <p className="hidden md:block">List Items</p>
+          <p className="text-sm">List Items</p>
         </NavLink>
 
         {/* Order Items */}
@@ -31,7 +31,7 @@ const Sidebar = () => {
           to="/orders"
         >
           <FaCalendarCheck className="text-2xl" />
-          <p className="hidden md:block">Order Items</p>
+          <p className="text-sm">Order Items</p>
         </NavLink>
       </nav>
     </div>

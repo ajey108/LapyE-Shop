@@ -7,7 +7,7 @@ const LatestCollection = () => {
   const { products } = useContext(ShopContext);
 
   const [latestProducts, setLatestProducts] = useState([]);
-  console.log(latestProducts);
+  //console.log(latestProducts);
 
   useEffect(() => {
     // Only update when products change

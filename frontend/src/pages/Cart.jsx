@@ -9,7 +9,7 @@ const Cart = () => {
     useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
-  console.log(cartData);
+  //console.log(cartData);
 
   useEffect(() => {
     if (products.length > 0) {

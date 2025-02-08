@@ -13,10 +13,10 @@ const Orders = () => {
   const loadOrderData = useCallback(async () => {
     try {
       if (!token) {
-        console.error("Token is missing");
+        //console.error("Token is missing");
         return null;
       }
-      console.log("Token in order.jsx is :", token); // Log the token to ensure it is correct
+      //console.log("Token in order.jsx is :", token); // Log the token to ensure it is correct
 
       const response = await axios.post(
         `${backendUrl}/api/order/userorders`,
@@ -25,7 +25,7 @@ const Orders = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("response orders", response);
+      // console.log("response orders", response);
       if (response.data.success) {
         let allOrdersItem = [];
         response.data.orders.forEach((order) => {

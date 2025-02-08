@@ -15,8 +15,8 @@ const ShopContextProvider = (props) => {
   const [showSearch, setShowSearch] = useState(true);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
-  console.log(token);
-  console.log(cartItems);
+  // console.log(token);
+  // console.log(cartItems);
 
   const [products, setProducts] = useState([]);
 
@@ -24,8 +24,8 @@ const ShopContextProvider = (props) => {
 
   // Add item to cart
   const addToCart = async (itemId, selectedVariant) => {
-    console.log("itemId:", itemId);
-    console.log(`clicked ${itemId} ${selectedVariant}`);
+    // console.log("itemId:", itemId);
+    // console.log(`clicked ${itemId} ${selectedVariant}`);
 
     // create a shallow copy of the current cartItems
     let cartData = Object.assign({}, cartItems);
@@ -158,7 +158,7 @@ const ShopContextProvider = (props) => {
             headers: { authorization: `Bearer ${localToken}` },
           }
         );
-        console.log("response", response);
+        // console.log("response", response);
 
         if (response.data.success && response.data.cart) {
           setCartItems(response.data.cart);
@@ -224,7 +224,7 @@ const ShopContextProvider = (props) => {
     setToken,
   };
 
-  console.log("value of token ", value);
+  //console.log("value of token ", value);
 
   return (
     <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
