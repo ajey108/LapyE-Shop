@@ -59,8 +59,8 @@ Admin Features
 1️⃣ Clone the Repository
 
 
-git clone https://github.com/ajey108/LapyE-Shop
-```cd laptop-ecommerce ```
+```git clone https://github.com/ajey108/LapyE-Shop```
+
 
 2️⃣ Install Dependencies
 
