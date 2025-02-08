@@ -1,10 +1,6 @@
 🛒 Laptop E-commerce MERN WebApp
 
-🚀 Live Demo
-
-🔗 Live Site 
-
-📸 Screenshots
+🚀 Live Demo   coming soon
 
 🏠 Home Page   
  ![Image Alt](https://github.com/ajey108/LapyE-Shop/blob/f5cec19cf73e40f2aa19558d17842645a7ca1317/Homepage.png)
