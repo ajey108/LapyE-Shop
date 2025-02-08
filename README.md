@@ -63,38 +63,46 @@ Admin Features
 1️⃣ Clone the Repository
 
 
-git clone https://github.com/yourusername/laptop-ecommerce.git
-cd laptop-ecommerce 
+git clone https://github.com/ajey108/LapyE-Shop
+```cd laptop-ecommerce ```
 
 2️⃣ Install Dependencies
 
 Backend
-cd backend
+
+```cd backend
 npm install
+```
+
 Frontend
+```
 cd frontend
 npm install
+```
 
 3️⃣ Setup Environment Variables
 
 Create a .env file in the backend directory and add:
 
-MONGO_URI=your_mongodb_uri
+```MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_jwt_secret
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 STRIPE_SECRET_KEY=your_stripe_secret
+```
 
 4️⃣ Run the Application
 
 Backend
-cd backend
+```cd backend
 npm run server
+```
 
 Frontend
-cd frontend
+```cd frontend
 npm run dev
+```
 
 🎯 Future Enhancements
 
@@ -108,4 +116,4 @@ npm run dev
 
 This project is licensed under the MIT License.
 
-💡 **Developed with ❤️ by Ajay Kumar
+💡 **Developed with ❤️ by Ajay
