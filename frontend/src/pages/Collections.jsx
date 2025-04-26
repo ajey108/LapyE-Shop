@@ -53,7 +53,7 @@ const Collections = () => {
   }, [products, showSearch, search, category, sort]); // Dependencies for filtering and sorting
 
   return (
-    <div className="px-4 sm:px-10 pt-10 border-t">
+    <div className="dark:text-white px-4 sm:px-10 pt-10 border-t  mb-4">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sidebar Filter Section */}
         <div
@@ -64,7 +64,7 @@ const Collections = () => {
           <div className="mb-4 flex justify-between items-center sm:hidden">
             <p
               onClick={() => setShowFilter(!showFilter)}
-              className="my-2 text-xl flex items-center gap-2 cursor-pointer font-semibold text-gray-700"
+              className="my-2 text-xl flex items-center gap-2 cursor-pointer font-semibold"
             >
               Filters
               <IoMdArrowDropupCircle
@@ -79,10 +79,8 @@ const Collections = () => {
               showFilter ? "block" : "hidden sm:block"
             }`}
           >
-            <p className="mb-3 text-lg font-semibold text-gray-800">
-              Categories
-            </p>
-            <div className="flex flex-col gap-4 text-md text-gray-600">
+            <p className="mb-3 text-lg font-semibold">Categories</p>
+            <div className="flex flex-col gap-4 text-md ">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"

@@ -4,7 +4,7 @@ import NewsletterSubscription from "../components/NewsletterSubscription";
 const Contact = () => {
   return (
     <div>
-      <div className="text-center text-2xl pt-10 border-t">
+      <div className=" dark:text-white text-center text-2xl pt-10 border-t">
         <Title text1={"CONTACT"} text2={"US"} />
       </div>
 
@@ -17,15 +17,15 @@ const Contact = () => {
           alt=""
         />
         <div className="flex flex-col justify-center items-start gap-6">
-          <p className="font-semibold text-xl text-gray-600">TechWorld Store</p>
-          <p className=" text-gray-500">
+          <p className="font-semibold text-xl">TechWorld Store</p>
+          <p className=" ">
             1234 Tech Avenue <br /> Suite 500, Silicon Valley, CA, USA
           </p>
-          <p className=" text-gray-500">
+          <p className=" ">
             Tel: (415) 555-0132 <br /> Email: support@techworld.com
           </p>
-          <p className="font-semibold text-xl text-gray-600">Join Our Team</p>
-          <p className=" text-gray-500">
+          <p className="font-semibold text-xl ">Join Our Team</p>
+          <p className=" ">
             Explore career opportunities at TechWorld and be part of the future
             of laptop innovation.
           </p>

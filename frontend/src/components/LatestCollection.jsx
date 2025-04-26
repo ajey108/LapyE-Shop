@@ -17,16 +17,17 @@ const LatestCollection = () => {
   }, [products]); // Add products as a dependency
 
   return (
-    <div className="my-5">
+    <div className="my-5 dark:text-white  ">
       <div className="text-center py-8 text-3xl">
-        <Title text1={"Newly"} text2={"Added"} />
-        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-500">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut, et.
+        <Title text1={"Discover the Latest in "} text2={"Laptop Innovation!"} />
+        <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base">
+          Explore our latest additions to the laptop collection. Discover
+          cutting-edge technology and powerful performance.
         </p>
       </div>
 
       {/* Render products */}
-      <div className="grid border-b-4  pl-[50px] grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 gap-x-6">
+      <div className="grid   pl-[50px] grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 gap-x-6">
         {latestProducts.map((item, index) => (
           <ProductItem
             key={index}
@@ -37,8 +38,6 @@ const LatestCollection = () => {
           />
         ))}
       </div>
-
-      <hr className="h-4" />
     </div>
   );
 };

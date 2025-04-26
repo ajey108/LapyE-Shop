@@ -54,6 +54,9 @@ const Login = () => {
   useEffect(() => {
     if (token) {
       navigate("/");
+      setTimeout(() => {
+        toast.success("Logged in successfully");
+      }, 1000);
     }
   }, [token, navigate]);
 
@@ -83,14 +86,14 @@ const Login = () => {
       <input
         onChange={(e) => setEmail(e.target.value)}
         value={email}
-        className="border border-gray-400 px-3 py-2 rounded w-full"
+        className="border text-gray-950 border-gray-400 px-3 py-2 rounded w-full"
         placeholder="Email"
         type="Email"
       />
       <input
         onChange={(e) => setPassword(e.target.value)}
         value={password}
-        className="border border-gray-400 px-3 py-2 rounded w-full"
+        className="border text-gray-950 border-gray-400 px-3 py-2 rounded w-full"
         placeholder="Password"
         type="Password"
       />

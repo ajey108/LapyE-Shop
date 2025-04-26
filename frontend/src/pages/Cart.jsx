@@ -30,7 +30,7 @@ const Cart = () => {
   }, [cartItems, products]);
 
   return (
-    <div className="border-t pt-14 px-4 sm:px-8">
+    <div className="border-t dark:text-white pt-14 px-4 sm:px-8">
       {/* Title */}
       <div className="text-2xl mb-3">
         <Title text1={"YOUR"} text2={"CART"} />
@@ -49,7 +49,7 @@ const Cart = () => {
           return (
             <div
               key={index}
-              className="py-4 border-t border-b text-gray-700 grid gap-4 grid-cols-1 sm:grid-cols-[4fr_2fr_0.5fr] items-center"
+              className="py-4 border-t border-b  grid gap-4 grid-cols-1 sm:grid-cols-[4fr_2fr_0.5fr] items-center"
             >
               {/* Product Details */}
               <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-7">
@@ -67,7 +67,7 @@ const Cart = () => {
                       {currency}
                       {productData.price}
                     </p>
-                    <p className="px-2 sm:px-3 sm:py-2 border bg-slate-50 text-xs sm:text-sm">
+                    <p className="px-2 sm:px-3 sm:py-2 border  text-xs sm:text-sm">
                       {item.size}
                     </p>
                   </div>
@@ -85,7 +85,7 @@ const Cart = () => {
                         Number(e.target.value)
                       )
                 }
-                className="border w-full sm:w-20 px-2 py-1 text-center text-sm sm:text-lg"
+                className="border text-gray-700 w-full sm:w-20 px-2 py-1 text-center text-sm sm:text-lg"
                 type="number"
                 min={1}
                 defaultValue={item.quantity}

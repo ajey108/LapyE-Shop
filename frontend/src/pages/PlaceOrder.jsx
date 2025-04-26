@@ -3,7 +3,6 @@ import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import { SiRazorpay } from "react-icons/si";
 import { LiaMoneyCheckAltSolid } from "react-icons/lia";
 
 const PlaceOrder = () => {
@@ -39,6 +38,16 @@ const PlaceOrder = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
+
+    //check if user is logged in
+
+    if (!token) {
+      toast.error("Please log in to place an order.");
+      setTimeout(() => {
+        window.location.replace("/login"); // Redirect to login page
+      }, 2000);
+      return;
+    }
     try {
       let orderItems = [];
 
@@ -82,7 +91,10 @@ const PlaceOrder = () => {
             // console.log("COD response:", response.data); // Log the response data
             if (response.data.success) {
               setCartItems({});
-              navigate("/orders");
+              toast.success("Order has been placed");
+              setTimeout(() => {
+                navigate("/orders");
+              }, 1000);
             } else {
               toast.error(response.data.message);
             }
@@ -127,7 +139,7 @@ const PlaceOrder = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh]"
+      className="flex dark:text-white flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh]"
     >
       {/* Left Side */}
       <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">
@@ -137,7 +149,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="firstName"
             value={formData.firstName}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
+            className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
             type="text"
             placeholder="First Name"
           />
@@ -146,7 +158,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="lastName"
             value={formData.lastName}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
+            className="border dark:text-gray-500 dark:bg-gray-80  px-3 py-2 rounded w-full"
             type="text"
             placeholder="Last Name"
           />
@@ -156,7 +168,7 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="email"
           value={formData.email}
-          className="border border-gray-400 px-3 py-2 rounded w-full"
+          className="border dark:text-gray-500 dark:bg-gray-80  px-3 py-2 rounded w-full"
           type="email"
           placeholder="Email Address"
         />
@@ -165,7 +177,7 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="street"
           value={formData.street}
-          className="border border-gray-400 px-3 py-2 rounded w-full"
+          className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
           type="text"
           placeholder="Street Address"
         />
@@ -175,7 +187,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="city"
             value={formData.city}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
+            className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
             type="text"
             placeholder="City"
           />
@@ -184,7 +196,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="state"
             value={formData.state}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
+            className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
             type="text"
             placeholder="State"
           />
@@ -195,7 +207,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="zipCode"
             value={formData.zipCode}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
+            className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
             type="number"
             placeholder="Zip Code"
           />
@@ -204,7 +216,7 @@ const PlaceOrder = () => {
             onChange={onChangeHandler}
             name="country"
             value={formData.country}
-            className="border border-gray-400 px-3 py-2 rounded w-full"
+            className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
             type="text"
             placeholder="Country"
           />
@@ -214,34 +226,34 @@ const PlaceOrder = () => {
           onChange={onChangeHandler}
           name="phone"
           value={formData.phone}
-          className="border border-gray-400 px-3 py-2 rounded w-full"
+          className="border dark:text-gray-500 dark:bg-gray-80 px-3 py-2 rounded w-full"
           type="tel"
           placeholder="Phone Number"
         />
       </div>
 
       {/* Right Side */}
-      <div className="mt-8">
+      <div className="mt-8 dark:text-white ">
         <div className="mt-12">
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
               onClick={() => setMethod("stripe")}
               className={`flex items-center gap-3 border p-2 px-3 cursor-pointer ${
-                method === "razorpay" ? "bg-green-100" : "bg-gray-100"
+                method === "stripe" ? "bg-blue-400" : ""
               }`}
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
-                  method === "stripe" ? "bg-green-400" : ""
+                  method === "stripe" ? "bg-blue-600" : ""
                 }`}
               ></p>
-              <SiRazorpay className="text-yellow-500" />
+
               <span>Stripe</span>
             </div>
             <div
               onClick={() => setMethod("cod")}
               className={`flex items-center gap-3 border p-2 px-3 cursor-pointer ${
-                method === "cod" ? "bg-green-100" : "bg-gray-100"
+                method === "cod" ? "bg-green-700" : ""
               }`}
             >
               <p

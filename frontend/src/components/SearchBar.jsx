@@ -18,17 +18,17 @@ const SearchBar = () => {
   }, [location, setShowSearch]);
 
   return showSearch ? (
-    <div className="border-t border-b bg-gray-50 text-center cursor-pointer w-[300px] rounded-full mb-2 ">
-      <div className="inline-flex items-center justify-center border-gray-400 px-5">
+    <div className="border-t bg-gray-200 border-b  text-center cursor-pointer w-[300px] rounded-full mb-2 ">
+      <div className="inline-flex items-center justify-center  px-5">
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search here..."
-          className="w-6/12 bg-gray-50 border-0  outline-none"
+          className="w-6/12 border-0 bg-gray-200 outline-none"
         />
         <RxCross2
-          className="text-2xl text-gray-400 cursor-pointer"
+          className="text-xl  cursor-pointer"
           onClick={() => setShowSearch(false)} // Closing the search when clicked
         />
       </div>

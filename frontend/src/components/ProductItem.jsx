@@ -13,7 +13,7 @@ const ProductItem = ({ id, name, image, price }) => {
         className="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200"
       >
         {/* Image Section */}
-        <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-100">
+        <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden">
           <img
             src={image}
             alt={name}

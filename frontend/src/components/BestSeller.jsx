@@ -15,11 +15,11 @@ const BestSeller = () => {
     }
   }, [products]);
   return (
-    <section className="py-16 px-4 border-b-4 bg-gray-50">
+    <section className="py-16 px-4 ">
       <div className="max-w-7xl mx-auto">
         <div className="text-center text-3xl mb-12">
           <Title text1="Best" text2="Sellers" />
-          <p className="max-w-2xl mx-auto text-gray-600 text-lg">
+          <p className="max-w-2xl mx-auto text-lg">
             Discover our most popular products loved by customers worldwide.
           </p>
         </div>

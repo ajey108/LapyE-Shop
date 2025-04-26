@@ -33,9 +33,9 @@ const Product = () => {
   }, [productId, products]);
 
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 bg-gray-100 text-black mb-3">
+    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 dark:text-white mb-3">
       {/* Product Data */}
-      <div className="flex justify-center items-center flex-col sm:flex-row gap-8">
+      <div className="flex justify-center  items-center flex-col sm:flex-row gap-8">
         {/* Product Image */}
         <div className="flex-1 flex justify-center items-center">
           <img
@@ -46,23 +46,27 @@ const Product = () => {
         </div>
 
         {/* Product Details */}
-        <div className="flex-1 text-center sm:text-left text-black">
+        <div className="flex-1 text-center sm:text-left ">
           <h1 className="text-3xl font-bold uppercase">{productData.name}</h1>
 
           {/* Rating and Reviews */}
-          <div className="flex items-center gap-2 mt-4">
-            <span className="text-black font-semibold text-lg">4.5</span>
-            <span className="text-gray-900">★★★★☆</span>
-            <p className="text-sm text-gray-400">(24 reviews)</p>
+          <div className="flex dark:text-white items-center gap-2 mt-4">
+            <span className=" font-semibold text-lg">4.5</span>
+            <span className="">★★★★☆</span>
+            <p className="text-sm ">(24 reviews)</p>
           </div>
-          <p className="text-lg mt-2">{productData.description}</p>
-          <p className="text-lg mt-2">{productData.subCategory}</p>
+          <p className="text-lg mt-2 dark:text-white">
+            {productData.description}
+          </p>
+          <p className="text-lg mt-2 dark:text-white ">
+            {productData.subCategory}
+          </p>
 
           {/* Specifications */}
           {productData.specs && (
-            <div className="mt-6">
+            <div className="mt-6 dark:text-white ">
               <h3 className="text-lg font-bold">Specifications:</h3>
-              <ul className="text-gray-400 flex flex-col gap-1">
+              <ul className=" flex flex-col gap-1">
                 {productData.specs.map((spec, index) => (
                   <li key={index}>{spec}</li>
                 ))}
@@ -71,7 +75,9 @@ const Product = () => {
           )}
           {/* Variants */}
           <div className="mt-6">
-            <h3 className="text-lg font-bold">Select Variant:</h3>
+            <h3 className="text-lg dark:text-white font-bold">
+              Select Variant:
+            </h3>
             {productData.variants.map((variant, index) => (
               <button
                 key={index}
@@ -79,10 +85,8 @@ const Product = () => {
                   console.log(`Selected variant: ${variant}`);
                   setSelectedVariant(variant);
                 }}
-                className={`border py-2 px-3 ml-2 bg-gray-300 ${
-                  selectedVariant === variant.trim()
-                    ? "bg-gray-800 text-white"
-                    : ""
+                className={`border py-2 px-3 ml-2 text-gray-400 ${
+                  selectedVariant === variant.trim() ? "bg-zinc-600 " : ""
                 }`}
               >
                 {variant} {/* Display the variant */}
@@ -91,10 +95,10 @@ const Product = () => {
           </div>
 
           {/* Price */}
-          <div className="mt-4">
-            <p className="text-xl font-semibold">
-              Price:{" "}
-              <span className="text-black">
+          <div className="mt-4 dark:text-white">
+            <p className="text-xl dark:text-white font-semibold">
+              Price :
+              <span className="dark:text-white p-4">
                 {currency}
                 {productData.price}
               </span>

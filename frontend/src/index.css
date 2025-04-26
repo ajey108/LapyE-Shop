@@ -1,15 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata:wght@400&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-white text-gray-700; /* Default light mode styles */
+}
+
+.dark body {
+  @apply bg-gray-900 text-white; /* Dark mode styles */
+}
+
+a {
+  @apply text-gray-700;
+}
+
+.dark a {
+  @apply text-gray-300;
+}
+
 * {
-  font-family: 'Outfit', sans-serif; /* Added sans-serif as fallback */
+  font-family: "Outfit", sans-serif; /* Added sans-serif as fallback */
 }
 
 .prata-regular {
-  font-family: 'Prata', serif;
+  font-family: "Prata", serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -18,19 +34,19 @@ a.active hr {
   display: block;
 }
 
-
-h1, h2, h3 {
-  font-family: 'Prata', serif; 
+h1,
+h2,
+h3 {
+  font-family: "Prata", serif;
 }
 
 p {
   font-weight: 400;
 }
 
-
-@media(max-width: 640px) {
-  a.active{
+@media (max-width: 640px) {
+  a.active {
     background-color: black;
-    color:white
+    color: white;
   }
 }
