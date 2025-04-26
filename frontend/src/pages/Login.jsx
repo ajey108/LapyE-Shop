@@ -25,7 +25,7 @@ const Login = () => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("userId", response.data.userId); // Store userId in localStorage
-          console.log("User ID set in localStorage:", response.data.userId);
+          //console.log("User ID set in localStorage:", response.data.userId);
         } else {
           toast.error(response.data.message);
         }
@@ -39,13 +39,13 @@ const Login = () => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("userId", response.data.userId); // Store userId in localStorage
-          console.log("userid set in localstorage:", response.data.userId);
+          //console.log("userid set in localstorage:", response.data.userId);
         } else {
           toast.error(response.data.message);
         }
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       toast.error(error.response.data.message);
     }
   };
