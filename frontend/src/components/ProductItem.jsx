@@ -10,14 +10,14 @@ const ProductItem = ({ id, name, image, price }) => {
 
       <Link
         to={`/product/${id}`}
-        className="group block bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200"
+        className="group block rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200"
       >
         {/* Image Section */}
         <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden">
           <img
             src={image}
             alt={name}
-            className="h-[280px] w-full object-cover object-center group-hover:scale-105 group-hover:opacity-90 transition-transform transition-opacity duration-300"
+            className="h-[280px] w-full object-cover object-center group-hover:scale-105 group-hover:opacity-90  transition-opacity duration-300"
           />
         </div>
 

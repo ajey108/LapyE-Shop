@@ -27,12 +27,12 @@ const LatestCollection = () => {
       </div>
 
       {/* Render products */}
-      <div className="grid   pl-[50px] grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 gap-x-6">
+      <div className="grid pl-[5px] grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 gap-x-2 justify-items-center sm:justify-items-start">
         {latestProducts.map((item, index) => (
           <ProductItem
             key={index}
             id={item._id}
-            image={item.image[0]} // Access the first image in the array
+            image={item.image[0]}
             name={item.name}
             price={item.price}
           />
