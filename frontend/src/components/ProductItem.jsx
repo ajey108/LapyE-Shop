@@ -24,15 +24,13 @@ const ProductItem = ({ id, name, image, price }) => {
         {/* Content Section */}
         <div className="p-4 space-y-3">
           {/* Product Name */}
-          <h3 className="text-sm text-gray-700 font-medium line-clamp-2 group-hover:text-black transition-colors duration-200">
-            {name}
-          </h3>
+          <h3 className="text-sm dark:text-white ">{name}</h3>
 
           {/* Price and Button */}
           <div className="flex items-center justify-between">
             {/* Price */}
-            <p className="text-lg font-semibold text-gray-900">
-              <span className="text-sm font-normal text-gray-500 mr-1">
+            <p className="text-lg font-semibold dark:text-white">
+              <span className="text-sm font-normal dark:text-white mr-1">
                 {currency}
               </span>
               {price}
