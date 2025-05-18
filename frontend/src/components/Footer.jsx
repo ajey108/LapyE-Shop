@@ -1,6 +1,6 @@
 import { FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { SiKingstontechnology } from "react-icons/si";
-import { BsDiscord } from "react-icons/bs";
+import { FaCodeFork } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -28,12 +28,12 @@ const Footer = () => {
 
         {/* Discord */}
         <a
-          href="https://discord.com"
+          href="https://github.com/ajey108/LapyE-Shop"
           target="_blank"
           rel="noopener noreferrer"
           className=" hover:text-blue-500 transition duration-300 text-2xl"
         >
-          <BsDiscord />
+          <FaCodeFork />
         </a>
 
         {/* Portfolio */}
