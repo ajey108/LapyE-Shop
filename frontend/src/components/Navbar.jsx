@@ -123,7 +123,7 @@ const Navbar = () => {
           />
 
           {/* dark mode theme */}
-          <button value="light" onClick={setDark}>☀️</button>
+          <button onClick={() => setDark(dark === "light" ? "dark" : "light")}>{dark === "light" ? "☀️" : "🌙"}</button>
         </div>
 
         {/* Sidebar menu for small screens */}
