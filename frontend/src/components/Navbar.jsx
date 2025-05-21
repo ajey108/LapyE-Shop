@@ -33,11 +33,7 @@ const Navbar = () => {
   };
   //darkmode
   useEffect(() => {
-    if (dark == "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark");
   }, [dark]);
 
   // ui
@@ -127,14 +123,7 @@ const Navbar = () => {
           />
 
           {/* dark mode theme */}
-
-          <select
-            className="appearance-none border-none w-9 bg-transparent focus:outline-none"
-            onChange={(e) => setDark(e.target.value)}
-          >
-            <option value="light">☀️</option>
-            <option value="dark">🌙</option>
-          </select>
+          <button value="light" onClick={setDark}>☀️</button>
         </div>
 
         {/* Sidebar menu for small screens */}
