@@ -53,7 +53,7 @@ const Collections = () => {
   }, [products, showSearch, search, category, sort]); // Dependencies for filtering and sorting
 
   return (
-    <div className="dark:text-white px-4 sm:px-10 pt-10 border-t  mb-4">
+    <div className="dark:text-white px-4 sm:px-10 pt-10 border-t  mb-2">
       <div className="flex flex-col sm:flex-row gap-6">
         {/* Sidebar Filter Section */}
         <div

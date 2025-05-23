@@ -4,7 +4,7 @@ import { FaCodeFork } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="dark:text-white border-2 py-4 rounded-lg mb-2">
+    <footer className="dark:text-white border-2 py-4 rounded-lg shadow-lg ">
       <div className="max-w-7xl mx-auto px-6 flex justify-center items-center space-x-8">
         {/* GitHub */}
         <a
