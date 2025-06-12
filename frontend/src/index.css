@@ -50,3 +50,14 @@ p {
     color: white;
   }
 }
+
+/* custom styles for a small toast */
+.custom-toast {
+  @apply px-3 py-1 text-sm rounded-md shadow-md;
+  min-width: 0 !important;
+  max-width: 180px !important;
+  width: auto !important;
+  margin: 0.5rem !important;
+  left: auto !important;
+  right: 1rem !important;
+}
