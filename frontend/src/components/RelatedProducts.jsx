@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
-import ProductItem from "./ProductItem";
+import ProductItem from "./ProductItem.jsx";
 import Title from "./Title";
 
 const RelatedProducts = ({ category }) => {
@@ -8,13 +8,10 @@ const RelatedProducts = ({ category }) => {
   const [related, setRelated] = useState([]);
 
   useEffect(() => {
-    // Only update when products change
-    if (products.length > 0) {
-      let productsCopy = products.slice();
-      productsCopy = productsCopy.filter((item) => item.category === category);
-      setRelated(productsCopy.slice(0, 3));
+    if (products && category) {
+      setRelated(products.filter((p) => p.category === category));
     }
-  }, [products]);
+  }, [products, category]);
 
   return (
     <div className="my-24">
@@ -23,9 +20,9 @@ const RelatedProducts = ({ category }) => {
       </div>
 
       <div className="grid pl-[5px] grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 gap-x-2 justify-items-center sm:justify-items-start">
-        {related.map((item, index) => (
+        {related.map((item) => (
           <ProductItem
-            key={index}
+            key={item._id}
             id={item._id}
             image={item.image[0]}
             name={item.name}

@@ -17,6 +17,7 @@ const Login = ({ setToken }) => {
         password,
       });
       console.log("Login response:", response);
+      toast.success("Login successful!");
 
       if (response.data.success) {
         setToken(response.data.token);

@@ -37,9 +37,9 @@ const ProductItem = ({ id, name, image, price }) => {
             </p>
 
             {/* Button */}
-            <button className="text-xs bg-gray-800 text-white px-4 py-2 rounded-full hover:bg-black transition-colors duration-200">
+            {/* <span className="text-xs bg-gray-800 text-white px-4 py-2 rounded-full hover:bg-black transition-colors duration-200">
               View Details
-            </button>
+            </span> */}
           </div>
         </div>
       </Link>
