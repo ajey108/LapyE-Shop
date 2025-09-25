@@ -34,7 +34,7 @@ const Product = () => {
   }, [productId, products]);
 
   return productData ? (
-    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 dark:text-white mb-3">
+    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100 dark:text-white mt-[100px] mb-3">
       {/* Product Data */}
       <div className="flex justify-center  items-center flex-col sm:flex-row gap-8">
         {/* Product Image */}

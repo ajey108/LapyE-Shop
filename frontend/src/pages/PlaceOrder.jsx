@@ -139,7 +139,7 @@ const PlaceOrder = () => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="flex dark:text-white flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh]"
+      className="flex dark:text-white flex-col sm:flex-row justify-between gap-4 mt-28 pt-5 sm:pt-14 min-h-[80vh]"
     >
       {/* Left Side */}
       <div className="flex flex-col gap-4 w-full sm:max-w-[480px]">

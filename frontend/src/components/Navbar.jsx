@@ -130,8 +130,8 @@ const Navbar = () => {
 
         {/* Sidebar menu for small screens */}
         <div
-          className={`absolute top-0 right-0 bottom-0 overflow-hidden  transition-all ${
-            visible ? "w-full" : "w-0"
+          className={`fixed top-0 right-0 bottom-0 left-0 h-screen z-40 bg-zinc-900 text-white transition-transform ${
+            visible ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex flex-col dark:text-white bg-zinc-900">
@@ -165,7 +165,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               onClick={() => setVisible(false)}
-              className="py-2 pl-6 "
+              className="py-2 pl-6  "
               to="/contact"
             >
               CONTACT
