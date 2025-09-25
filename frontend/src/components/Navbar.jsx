@@ -39,7 +39,7 @@ const Navbar = () => {
   // ui
   return (
     <div className={dark == "dark" ? "dark" : "light"}>
-      <div className="flex dark:text-white items-center justify-between py-5 font-medium">
+      <div className="flex dark:text-white items-center justify-between py-5 font-medium fixed top-0 left-0 right-0 bg-white dark:bg-zinc-900 z-50 px-4 sm:px-10 border-b">
         <Link to="/">
           <img
             src={laplogo}
@@ -123,16 +123,18 @@ const Navbar = () => {
           />
 
           {/* dark mode theme */}
-          <button onClick={() => setDark(dark === "light" ? "dark" : "light")}>{dark === "light" ? "☀️" : "🌙"}</button>
+          <button onClick={() => setDark(dark === "light" ? "dark" : "light")}>
+            {dark === "light" ? "☀️" : "🌙"}
+          </button>
         </div>
 
         {/* Sidebar menu for small screens */}
         <div
-          className={`absolute top-0 right-0 bottom-0 overflow-hidden dark:text-white transition-all ${
+          className={`absolute top-0 right-0 bottom-0 overflow-hidden  transition-all ${
             visible ? "w-full" : "w-0"
           }`}
         >
-          <div className="flex flex-col dark:text-white">
+          <div className="flex flex-col dark:text-white bg-zinc-900">
             <div
               onClick={() => setVisible(false)}
               className="flex items-center gap-4 p-3 cursor-pointer"
@@ -142,28 +144,28 @@ const Navbar = () => {
             </div>
             <NavLink
               onClick={() => setVisible(false)}
-              className="py-2 pl-6 border"
+              className="py-2 pl-6 "
               to="/"
             >
               HOME
             </NavLink>
             <NavLink
               onClick={() => setVisible(false)}
-              className="py-2 pl-6 border"
+              className="py-2 pl-6 "
               to="/collection"
             >
               COLLECTION
             </NavLink>
             <NavLink
               onClick={() => setVisible(false)}
-              className="py-2 pl-6 border"
+              className="py-2 pl-6 "
               to="/about"
             >
               ABOUT
             </NavLink>
             <NavLink
               onClick={() => setVisible(false)}
-              className="py-2 pl-6 border"
+              className="py-2 pl-6 "
               to="/contact"
             >
               CONTACT

@@ -1,4 +1,3 @@
-import React from "react";
 import Title from "../components/Title";
 import NewletterSubscription from "../components/NewsletterSubscription";
 
@@ -25,9 +24,9 @@ const About = () => {
             enthusiasts, professionals, and everyday users alike.
           </p>
           <p>
-            We handpick every laptop in our store, ensuring they meet the
+            `We handpick every laptop in our store, ensuring they meet the
             highest standards of performance, durability, and design. Whether
-            you're looking for the latest gaming laptop, a reliable work
+            you are looking for the latest gaming laptop, a reliable work
             machine, or an affordable everyday device, we have something for
             everyone.
           </p>

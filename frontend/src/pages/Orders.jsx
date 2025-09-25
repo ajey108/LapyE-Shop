@@ -92,6 +92,13 @@ const Orders = () => {
                   <p className="text-sm md:text-base">{item.status}</p>{" "}
                   <span className="text-gray-600">{item.paymentMethod}</span>
                 </div>
+
+                <button
+                  onClick={loadOrderData}
+                  className="py-2 px-3 bg-gray-950 text-white rounded-md hover:bg-gray-800 transition duration-200  "
+                >
+                  Track Order
+                </button>
               </div>
             </div>
           ))

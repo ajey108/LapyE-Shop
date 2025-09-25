@@ -2,7 +2,7 @@ import laptopbanner from "../assets/laptopbanner.png";
 
 const Banner = () => {
   return (
-    <div className=" shadow-lg rounded-lg dark:text-white flex flex-col sm:flex-row items-center p-6 border border-gray-200 max-w-7xl mx-auto">
+    <div className=" shadow-lg rounded-lg mt-24 dark:text-white flex flex-col sm:flex-row items-center p-6  max-w-7xl mx-auto">
       <div className="flex-1 p-6">
         <h1 className="text-3xl font-extrabold mb-4">
           Empower Your Productivity
