@@ -19,10 +19,10 @@ const About = () => {
         />
         <div className=" dark:text-white flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
           <p>
-            At TechWorld, we are passionate about making cutting-edge technology
-            accessible to everyone. Our journey started with one goal: to
-            provide a seamless shopping experience for laptop enthusiasts,
-            professionals, and everyday users alike.
+            At LapyE-shop, we are passionate about making cutting-edge
+            technology accessible to everyone. Our journey started with one
+            goal: to provide a seamless shopping experience for laptop
+            enthusiasts, professionals, and everyday users alike.
           </p>
           <p>
             We handpick every laptop in our store, ensuring they meet the
